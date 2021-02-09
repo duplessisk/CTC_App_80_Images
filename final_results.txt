@@ -3,7 +3,7 @@ Test Taker: Kyle Duplessis
 Company: Rarecyte
 
 Breakdown: 
-21 out of 80 (26%)
+0 out of 80 (0%)
 
 object Type CK/EpCAM Foci: Wrong 14 out of 14 (0%)
 Objects Wrong: 00, 11, 14, 15, 17, 18, 23, 32, 35, 40, 47, 48, 49, 65
@@ -14,8 +14,8 @@ Objects Wrong: 01, 02, 21, 22, 24, 28, 42, 53, 58, 59, 79
 object Type White Blood Cell: Wrong 25 out of 25 (0%)
 Objects Wrong: 03, 04, 05, 06, 07, 08, 09, 10, 12, 13, 16, 19, 20, 25, 26, 27, 30, 33, 34, 36, 37, 38, 41, 43, 61
 
-object Type CTC: Wrong 0 out of 21 (100%)
-Objects Wrong: 
+object Type CTC: Wrong 21 out of 21 (0%)
+Objects Wrong: 29, 31, 44, 45, 51, 52, 54, 55, 56, 57, 63, 66, 67, 68, 70, 71, 74, 75, 76, 77, 78
 
 object Type Apoptotic CTC: Wrong 8 out of 8 (0%)
 Objects Wrong: 39, 46, 50, 60, 62, 64, 72, 73
@@ -23,4 +23,4 @@ Objects Wrong: 39, 46, 50, 60, 62, 64, 72, 73
 object Type Skin Squamous Cell: Wrong 1 out of 1 (0%)
 Objects Wrong: 69
 
-Time Stamp: 2/8/2021, 11:16:04 PM
+Time Stamp: 2/9/2021, 4:10:43 AM
