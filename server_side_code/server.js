@@ -113,7 +113,7 @@ app.post("/html_pages/page_4", function(request,response) {
 app.get("/html_pages/page_5", function(request,response) {
     response.sendFile(path.join(__dirname + '/html_pages/page_5.html'));
 });
-app.post("/html_pages/page_4", function(request,response) {
+app.post("/html_pages/page_5", function(request,response) {
     processPage(request, 5, true);
     redirectPage(request, response, '/html_pages/page_4','/html_pages/page_6',
         '/html_pages/review_page');
@@ -125,7 +125,7 @@ app.get("/html_pages/page_6", function(request,response) {
 });
 app.post("/html_pages/page_6", function(request,response) {
     processPage(request, 6, true);
-    redirectPage(request, response, '/html_pages/page_6','/html_pages/page_6',
+    redirectPage(request, response, '/html_pages/page_5','/html_pages/page_7',
         '/html_pages/review_page');
 });
 
@@ -135,7 +135,7 @@ app.get("/html_pages/page_7", function(request,response) {
 });
 app.post("/html_pages/page_7", function(request,response) {
     processPage(request, 7, true);
-    redirectPage(request, response, '/html_pages/page_7','/html_pages/page_7',
+    redirectPage(request, response, '/html_pages/page_6','/html_pages/page_8',
         '/html_pages/review_page');
 });
 
@@ -161,8 +161,8 @@ app.post("/html_pages/review_page", function(request,response) {
         
         var btnClicked = request.body.btn;
         if (btnClicked == "Previous") {
-            processPage(request,5,false);
-            redirectPage(request, response, '/html_pages/page_5','','');
+            processPage(request,8,false);
+            redirectPage(request, response, '/html_pages/page_8','','');
         } else if (btnClicked == "pageOneNull") {
             processPage(request, 1,false);
             redirectPage(request, response,'','','/html_pages/page_1');
@@ -186,7 +186,7 @@ app.post("/html_pages/review_page", function(request,response) {
             redirectPage(request, response,'','','/html_pages/page_7');
         } else if (btnClicked == "pageEightNull") {
             processPage(request,8,false);
-            redirectPage(request, response,'','','/html_pages/page_5');
+            redirectPage(request, response,'','','/html_pages/page_8');
         }else if (clientData.previouslySubmitted) {
             response.redirect('/html_pages/form_already_submitted_page');
         } else {
@@ -479,7 +479,7 @@ function setWrongObjectPaths(wrongObjectsByPage) {
 
     [wrongObjectsByType, totalWrongByType] = initWrongMaps(allObjectTypes);
 
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 8; i++) {
         for (var j = 0; j < wrongObjectsByPage[i].length; j++) {
             var objectNum = wrongObjectsByPage[i][j];
             var objectPath = '/static/object_answers/object' + objectNum + 
@@ -730,7 +730,7 @@ function sendEmailWithResults(request) {
         from: process.env.EMAIL_SENDER_ACC,
         to: process.env.EMAIL_RECIEVER_ACC,
         subject: firstName + " " + lastName + ' CTC App Results',
-        text: "50 images no AF",
+        text: "80 objects no AF",
         attachments: [{
             filename: 'final_results.txt',
             path: './final_results.txt'

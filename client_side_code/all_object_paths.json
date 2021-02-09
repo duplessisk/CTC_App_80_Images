@@ -1,61 +1,77 @@
 {
     "CK/EpCAM Foci": "/static/object_answers/object00answer.png"
 }{
-    "CK/EpCAM Foci": "/static/object_answers/object05answer.png"
+    "CK/EpCAM Foci": "/static/object_answers/object11answer.png"
 }{
-    "CK/EpCAM Foci": "/static/object_answers/object21answer.png"
+    "CK/EpCAM Foci": "/static/object_answers/object14answer.png"
 }{
-    "CK/EpCAM Foci": "/static/object_answers/object22answer.png"
+    "CK/EpCAM Foci": "/static/object_answers/object15answer.png"
 }{
-    "CK/EpCAM Foci": "/static/object_answers/object24answer.png"
+    "CK/EpCAM Foci": "/static/object_answers/object17answer.png"
 }{
-    "CK/EpCAM Foci": "/static/object_answers/object34answer.png"
+    "CK/EpCAM Foci": "/static/object_answers/object18answer.png"
+}{
+    "CK/EpCAM Foci": "/static/object_answers/object23answer.png"
+}{
+    "CK/EpCAM Foci": "/static/object_answers/object32answer.png"
 }{
     "CK/EpCAM Foci": "/static/object_answers/object35answer.png"
 }{
-    "CK/EpCAM Foci": "/static/object_answers/object38answer.png"
+    "CK/EpCAM Foci": "/static/object_answers/object40answer.png"
 }{
-    "CK/EpCAM Foci": "/static/object_answers/object39answer.png"
+    "CK/EpCAM Foci": "/static/object_answers/object47answer.png"
 }{
-    "CTC": "/static/object_answers/object01answer.png"
+    "CK/EpCAM Foci": "/static/object_answers/object48answer.png"
 }{
-    "CTC": "/static/object_answers/object04answer.png"
+    "CK/EpCAM Foci": "/static/object_answers/object49answer.png"
 }{
-    "CTC": "/static/object_answers/object06answer.png"
+    "CK/EpCAM Foci": "/static/object_answers/object65answer.png"
 }{
-    "CTC": "/static/object_answers/object07answer.png"
+    "Fluorescent Artifact": "/static/object_answers/object01answer.png"
 }{
-    "CTC": "/static/object_answers/object08answer.png"
+    "Fluorescent Artifact": "/static/object_answers/object02answer.png"
 }{
-    "CTC": "/static/object_answers/object09answer.png"
+    "Fluorescent Artifact": "/static/object_answers/object21answer.png"
 }{
-    "CTC": "/static/object_answers/object10answer.png"
+    "Fluorescent Artifact": "/static/object_answers/object22answer.png"
 }{
-    "CTC": "/static/object_answers/object11answer.png"
+    "Fluorescent Artifact": "/static/object_answers/object24answer.png"
 }{
-    "CTC": "/static/object_answers/object12answer.png"
+    "Fluorescent Artifact": "/static/object_answers/object28answer.png"
 }{
-    "CTC": "/static/object_answers/object15answer.png"
+    "Fluorescent Artifact": "/static/object_answers/object42answer.png"
 }{
-    "CTC": "/static/object_answers/object16answer.png"
+    "Fluorescent Artifact": "/static/object_answers/object53answer.png"
 }{
-    "CTC": "/static/object_answers/object23answer.png"
+    "Fluorescent Artifact": "/static/object_answers/object58answer.png"
 }{
-    "CTC": "/static/object_answers/object28answer.png"
+    "Fluorescent Artifact": "/static/object_answers/object59answer.png"
 }{
-    "CTC": "/static/object_answers/object31answer.png"
+    "Fluorescent Artifact": "/static/object_answers/object79answer.png"
 }{
-    "CTC": "/static/object_answers/object36answer.png"
+    "White Blood Cell": "/static/object_answers/object03answer.png"
 }{
-    "Apoptotic CTC": "/static/object_answers/object02answer.png"
+    "White Blood Cell": "/static/object_answers/object04answer.png"
 }{
-    "Apoptotic CTC": "/static/object_answers/object03answer.png"
+    "White Blood Cell": "/static/object_answers/object05answer.png"
 }{
-    "Apoptotic CTC": "/static/object_answers/object13answer.png"
+    "White Blood Cell": "/static/object_answers/object06answer.png"
 }{
-    "White Blood Cell": "/static/object_answers/object14answer.png"
+    "White Blood Cell": "/static/object_answers/object07answer.png"
 }{
-    "White Blood Cell": "/static/object_answers/object18answer.png"
+    "White Blood Cell": "/static/object_answers/object08answer.png"
+}{
+    "White Blood Cell": "/static/object_answers/object09answer.png"
+}{
+    "White Blood Cell": "/static/object_answers/object10answer.png"
+}{
+    "White Blood Cell": "/static/object_answers/object12answer.png"
+}{
+    "White Blood Cell": "/static/object_answers/object13answer.png"
+}{
+    "White Blood Cell": "/static/object_answers/object16answer.png"
+}{
+    "White Blood Cell": "/static/object_answers/object19answer.png"
 }{
     "White Blood Cell": "/static/object_answers/object20answer.png"
 }{
@@ -65,37 +81,81 @@
 }{
     "White Blood Cell": "/static/object_answers/object27answer.png"
 }{
-    "White Blood Cell": "/static/object_answers/object32answer.png"
+    "White Blood Cell": "/static/object_answers/object30answer.png"
+}{
+    "White Blood Cell": "/static/object_answers/object33answer.png"
+}{
+    "White Blood Cell": "/static/object_answers/object34answer.png"
+}{
+    "White Blood Cell": "/static/object_answers/object36answer.png"
+}{
+    "White Blood Cell": "/static/object_answers/object37answer.png"
+}{
+    "White Blood Cell": "/static/object_answers/object38answer.png"
 }{
     "White Blood Cell": "/static/object_answers/object41answer.png"
 }{
-    "White Blood Cell": "/static/object_answers/object42answer.png"
+    "White Blood Cell": "/static/object_answers/object43answer.png"
 }{
-    "White Blood Cell": "/static/object_answers/object44answer.png"
+    "White Blood Cell": "/static/object_answers/object61answer.png"
 }{
-    "White Blood Cell": "/static/object_answers/object45answer.png"
+    "CTC": "/static/object_answers/object29answer.png"
 }{
-    "White Blood Cell": "/static/object_answers/object46answer.png"
+    "CTC": "/static/object_answers/object31answer.png"
 }{
-    "White Blood Cell": "/static/object_answers/object47answer.png"
+    "CTC": "/static/object_answers/object44answer.png"
 }{
-    "White Blood Cell": "/static/object_answers/object49answer.png"
+    "CTC": "/static/object_answers/object45answer.png"
 }{
-    "Fluorescent Artifact": "/static/object_answers/object17answer.png"
+    "CTC": "/static/object_answers/object51answer.png"
 }{
-    "Fluorescent Artifact": "/static/object_answers/object19answer.png"
+    "CTC": "/static/object_answers/object52answer.png"
 }{
-    "Fluorescent Artifact": "/static/object_answers/object29answer.png"
+    "CTC": "/static/object_answers/object54answer.png"
 }{
-    "Fluorescent Artifact": "/static/object_answers/object30answer.png"
+    "CTC": "/static/object_answers/object55answer.png"
 }{
-    "Fluorescent Artifact": "/static/object_answers/object33answer.png"
+    "CTC": "/static/object_answers/object56answer.png"
 }{
-    "Fluorescent Artifact": "/static/object_answers/object37answer.png"
+    "CTC": "/static/object_answers/object57answer.png"
 }{
-    "Fluorescent Artifact": "/static/object_answers/object40answer.png"
+    "CTC": "/static/object_answers/object63answer.png"
 }{
-    "Fluorescent Artifact": "/static/object_answers/object43answer.png"
+    "CTC": "/static/object_answers/object66answer.png"
 }{
-    "Fluorescent Artifact": "/static/object_answers/object48answer.png"
+    "CTC": "/static/object_answers/object67answer.png"
+}{
+    "CTC": "/static/object_answers/object68answer.png"
+}{
+    "CTC": "/static/object_answers/object70answer.png"
+}{
+    "CTC": "/static/object_answers/object71answer.png"
+}{
+    "CTC": "/static/object_answers/object74answer.png"
+}{
+    "CTC": "/static/object_answers/object75answer.png"
+}{
+    "CTC": "/static/object_answers/object76answer.png"
+}{
+    "CTC": "/static/object_answers/object77answer.png"
+}{
+    "CTC": "/static/object_answers/object78answer.png"
+}{
+    "Apoptotic CTC": "/static/object_answers/object39answer.png"
+}{
+    "Apoptotic CTC": "/static/object_answers/object46answer.png"
+}{
+    "Apoptotic CTC": "/static/object_answers/object50answer.png"
+}{
+    "Apoptotic CTC": "/static/object_answers/object60answer.png"
+}{
+    "Apoptotic CTC": "/static/object_answers/object62answer.png"
+}{
+    "Apoptotic CTC": "/static/object_answers/object64answer.png"
+}{
+    "Apoptotic CTC": "/static/object_answers/object72answer.png"
+}{
+    "Apoptotic CTC": "/static/object_answers/object73answer.png"
+}{
+    "Skin Squamous Cell": "/static/object_answers/object69answer.png"
 }

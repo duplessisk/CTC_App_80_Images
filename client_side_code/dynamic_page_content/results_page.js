@@ -60,6 +60,36 @@ function getClientScore(resultsText) {
 }
 
 /**
+ * Creates string representing wrong_object_paths.JSON that excludes 
+ * unnecessary tokens
+ * @param {String} wrongObjectPathsText - contents from wrong_object_paths.JSON
+ *                                        in String form
+ * @return - String containing all wrong object paths
+ */
+function filterString(objectPathsText) {
+    objectPathsString = "";
+    for (let i in objectPathsText) {
+        let t = objectPathsText[i];
+        if (t != '{') {
+            objectPathsString += t;
+        }
+    } 
+    return objectPathsString;
+}
+
+/**
+ * Sets the total number of incorrect responses by the user 
+ * @param {String} totalNumIncorrectString - String representing data from 
+ *                                           results_data.json. Contains total 
+ *                                           number of incorrect responses by 
+ *                                           the user. 
+ */
+function setTotalNumIncorrect(totalNumIncorrectString) {
+    return totalNumIncorrectString.substring(23, 
+        totalNumIncorrectString.length);
+}
+
+/**
  * Displays the client's score on the test. 
  * @param {Number} totalCorrect - Total number of questions the client got 
  *                                correct.  
