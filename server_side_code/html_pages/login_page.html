@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <p id="loginFormInstructions">Our records require that you enter your full name and company/institution.</p>
+    <form action="/html_pages/login_page" method="POST" id="form">
+        <div id="loginFormDiv">
+            <div class="login-fields-div">
+                <label for="firstName"></label>
+                <input id="firstName" class="login-fields" name="firstName" placeholder="First Name" required>
+            </div>
+            <div class="login-fields-div">
+                <label for="lastName"></label>
+                <input id="lastName" class="login-fields" name="lastName" placeholder="Last Name" required>
+            </div>
+            <div class="login-fields-div">
+                <label for="company"></label>
+                <input id="company" class="login-fields" name="company" placeholder="Company" required>
+            </div>
+        </div>
+    </form>
+    <script src="/static/html_page_elements/buttons/reset_button.js" charset="utf-8"></script>
+    <script src="/static/html_page_elements/buttons/submit_button.js" charset="utf-8"></script>
+
+</body>
+</html>

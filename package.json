@@ -1,0 +1,51 @@
+{
+  "name": "calculator",
+  "version": "1.0.0",
+  "description": "Express Server",
+  "main": "image_test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/duplessisk/Calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/duplessisk/Calculator/issues"
+  },
+  "homepage": "https://github.com/duplessisk/Calculator#readme",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "body-parser": "^1.19.0",
+    "brfs": "^2.0.2",
+    "browserify": "^17.0.0",
+    "browserify-fs": "^1.0.0",
+    "cookie-parser": "^1.4.5",
+    "csv-load-sync": "^1.0.0",
+    "csv-parser": "^3.0.0",
+    "cuid": "^2.1.8",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "heroku-logger": "^0.3.3",
+    "line-reader": "^0.4.0",
+    "mongodb": "^3.6.3",
+    "mongoose": "^5.11.13",
+    "mongoose-map": "^1.1.0",
+    "n-readlines": "^1.0.1",
+    "nodemailer": "^6.4.17",
+    "nodemon": "^2.0.6",
+    "sendgrid": "^5.2.3",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/node": "^7.12.10",
+    "@babel/preset-env": "^7.12.11"
+  }
+}
