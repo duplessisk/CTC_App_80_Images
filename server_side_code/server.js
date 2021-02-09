@@ -29,7 +29,7 @@ const schema = new mongoose.Schema({
     wrongObjectsByPage: Object,
 });
 
-const Client = mongoose.model('50imagesclients', schema);
+const Client = mongoose.model('80imagesclients', schema);
 
 console.log();
 console.log("server starting...");
@@ -113,9 +113,39 @@ app.post("/html_pages/page_4", function(request,response) {
 app.get("/html_pages/page_5", function(request,response) {
     response.sendFile(path.join(__dirname + '/html_pages/page_5.html'));
 });
-app.post("/html_pages/page_5", function(request,response) {
+app.post("/html_pages/page_4", function(request,response) {
     processPage(request, 5, true);
-    redirectPage(request, response, '/html_pages/page_4',
+    redirectPage(request, response, '/html_pages/page_4','/html_pages/page_6',
+        '/html_pages/review_page');
+});
+
+// page 6
+app.get("/html_pages/page_6", function(request,response) {
+    response.sendFile(path.join(__dirname + '/html_pages/page_6.html'));
+});
+app.post("/html_pages/page_6", function(request,response) {
+    processPage(request, 6, true);
+    redirectPage(request, response, '/html_pages/page_6','/html_pages/page_6',
+        '/html_pages/review_page');
+});
+
+// page 6
+app.get("/html_pages/page_7", function(request,response) {
+    response.sendFile(path.join(__dirname + '/html_pages/page_7.html'));
+});
+app.post("/html_pages/page_7", function(request,response) {
+    processPage(request, 7, true);
+    redirectPage(request, response, '/html_pages/page_7','/html_pages/page_7',
+        '/html_pages/review_page');
+});
+
+// page 8
+app.get("/html_pages/page_8", function(request,response) {
+    response.sendFile(path.join(__dirname + '/html_pages/page_8.html'));
+});
+app.post("/html_pages/page_8", function(request,response) {
+    processPage(request, 8, true);
+    redirectPage(request, response, '/html_pages/page_7',
         '/html_pages/review_page','/html_pages/review_page');
 });
 
@@ -148,7 +178,16 @@ app.post("/html_pages/review_page", function(request,response) {
         } else if (btnClicked == "pageFiveNull") {
             processPage(request,5,false);
             redirectPage(request, response,'','','/html_pages/page_5');
-        } else if (clientData.previouslySubmitted) {
+        } else if (btnClicked == "pageSixNull") {
+            processPage(request,6,false);
+            redirectPage(request, response,'','','/html_pages/page_6');
+        } else if (btnClicked == "pageSevenNull") {
+            processPage(request,7,false);
+            redirectPage(request, response,'','','/html_pages/page_7');
+        } else if (btnClicked == "pageEightNull") {
+            processPage(request,8,false);
+            redirectPage(request, response,'','','/html_pages/page_5');
+        }else if (clientData.previouslySubmitted) {
             response.redirect('/html_pages/form_already_submitted_page');
         } else {
 
@@ -328,7 +367,7 @@ function setClientResponses(clientResponses) {
  * @param {http} request - Client http request to the server.
  * @param {Array} answerKey - Contains all answers for this page. 
  * @param {Array} clientResponses - Contains client responses for each object.
- * @param {number} pageNumber - App page number (1-5) client is on.
+ * @param {number} pageNumber - App page number (1-8) client is on.
  */
 function setWrongObjectsByPage(request,answerKey,clientResponses,pageNumber) {
 

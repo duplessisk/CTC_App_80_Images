@@ -4,6 +4,9 @@
  * to the approprate pages) on the test before they submit.  
  */
 
+// Number of pages with questions.
+var NUM_PAGES = 8;
+
 function main() {
 
     document.getElementById("previousBtnDiv").classList.add('review');
@@ -16,10 +19,6 @@ function main() {
     writeReviewMessage();
 
     var pagesContainSkippedQuestions = getNullPages();
-    
-    console.log(localStorage.getItem('pageOneHasNull'));
-
-    console.log(pagesContainSkippedQuestions);
 
     findPagesWithSkippedQuestions(pagesContainSkippedQuestions);
     
@@ -65,8 +64,8 @@ function writeReviewMessage() {
  */
 function getNullPages() {
     var pagesContainBlankAnswers = [];
-    var pages = ["One","Two","Three","Four","Five"];
-    for (var i = 0; i < 5; i++) {
+    var pages = ["One","Two","Three","Four","Five","Six","Seven","Eight"]; 
+    for (var i = 0; i < NUM_PAGES; i++) {
         pagesContainBlankAnswers[i] = localStorage.getItem('page' + 
             pages[i] + 'HasNull');
     }
@@ -97,8 +96,8 @@ function findPagesWithSkippedQuestions(pagesContainSkippedQuestions) {
  *                                               response. 
  */
 function addNullButton(pagesContainSkippedQuestions) {
-    var pages = ["One","Two","Three","Four","Five"];
-    for (var i = 0; i < 5; i++) {
+    var pages = ["One","Two","Three","Four","Five","Six","Seven","Eight"]; 
+    for (var i = 0; i < NUM_PAGES; i++) {
         if (pagesContainSkippedQuestions[i] == "true") {
             var pageNullBtn = document.createElement('button');
             pageNullBtn.innerHTML = "Page " + pages[i];
