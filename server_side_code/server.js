@@ -201,10 +201,9 @@ app.post("/html_pages/review_page", function(request,response) {
             
             var totalIncorrect = getTotalIncorrect(totalWrongByType);
 
-            writeResultsData(numObjectsByType, totalWrongByType, 
-                totalIncorrect);
-            writeResultsFile(request,totalWrongByType, numObjectsByType, 
-                wrongObjectsByType);
+            writeResultsData(totalIncorrect);
+            writeResultsFile(request, totalIncorrect, totalWrongByType,
+                 numObjectsByType, wrongObjectsByType);
 
             sendEmailWithResults(request);
 
@@ -308,7 +307,7 @@ function processPage(request, pageNumber, notComingFromReviewPage) {
                         setWrongObjectsByPage(request, answerKey, clientResponses, 
                             pageNumber - 1);
                     }
-                });
+        });
     });   
 }
 
@@ -577,15 +576,12 @@ function getThisObjectType(allObjectTypes,objectNum) {
  * @param {Number} totalIncorrect - Total number of incorrect objects 
  *                                  (type agnostic)  
  */
-function writeResultsData(numObjectsByType, totalWrongByType, totalIncorrect) {
-    var numObjectsByTypeString = setNumObjectsByType(numObjectsByType);
-    var totalWrongByTypeString = setTotalWrongByType(totalWrongByType);
+function writeResultsData(totalIncorrect) {
+
     var totalIncorrectString = setTotalIncorrect(totalIncorrect);
 
     fs.writeFile("./client_side_code/results_data.json",  
-        totalIncorrectString + 
-        totalWrongByTypeString + 
-        numObjectsByTypeString , function() {
+        totalIncorrectString, function() {
     });
 }
 
@@ -604,42 +600,6 @@ function setTotalIncorrect(totalIncorrect) {
 }
 
 /**
- * Returns JSON string representing total number of questions by object type.
- * @param {Map} numObjectsByType - contains total number of objects by type.
- * @return - JSON string representing total number of objects by type.
- */
-function setNumObjectsByType(numObjectsByType) {
-    var numObjectsByTypeObject = {};
-    var numObjectsByTypeKeys = Array.from(numObjectsByType.keys());
-    for (var i = 0; i < numObjectsByTypeKeys.length; i++) {
-        var thisNumObjectsByType = 
-            numObjectsByType.get(numObjectsByTypeKeys[i]);
-        numObjectsByTypeObject[numObjectsByTypeKeys[i]] = 
-            thisNumObjectsByType;
-    }
-    return JSON.stringify(numObjectsByTypeObject,null,4);
-}
-
-/**
- * Returns JSON string representing total number of objects (by type) answered 
- * incorrectly by the client.
- * @param {Map} totalWrongByType - contains number of wrong objects by type.
- * @return - a string representing the client's total number of incorrect 
- *           responses by Object type.
- */
-function setTotalWrongByType(totalWrongByType) {
-    var totalWrongByTypeObject = {};
-    var totalWrongByTypeKeys = Array.from(totalWrongByType.keys());
-    for (var i = 0; i < totalWrongByTypeKeys.length; i++) {
-        var thisTypeTotalIncorrect = 
-            totalWrongByType.get(totalWrongByTypeKeys[i]);
-        totalWrongByTypeObject[totalWrongByTypeKeys[i]] = 
-            thisTypeTotalIncorrect;
-    }
-    return JSON.stringify(totalWrongByTypeObject,null,4);
-}
-
-/**
  * Writes the final_results.txt that will be emailed to the admin.
  * @param {http} request - Client http request to the server.
  * @param {Map} totalWrongByType - Contains number of incorrectly answered 
@@ -649,8 +609,8 @@ function setTotalWrongByType(totalWrongByType) {
  * @param {Map} wrongObjectsByType - Contains incorrectly answered objects 
  *                                   by type. 
  */
-function writeResultsFile(request, totalWrongByType, numObjectsByType, 
-                          wrongObjectsByType) {
+function writeResultsFile(request, totalIncorrect, totalWrongByType, 
+                          numObjectsByType, wrongObjectsByType) {
 
     var clientInfo = request.cookies['session_id'].split(".");
 
@@ -663,6 +623,9 @@ function writeResultsFile(request, totalWrongByType, numObjectsByType,
             function() {
         fs.appendFileSync("./final_results.txt", "Breakdown: " + "\n", 
         function() {});
+        fs.appendFileSync("./final_results.txt", (80 - totalIncorrect) + 
+        " out of " + 80 + " (" + Math.round(100*((80-totalIncorrect)/80))
+            + "%)" + "\n", function() {});
         var keys = Array.from(totalWrongByType.keys());
         for (var i = 0; i < keys.length; i++) {
             fs.appendFileSync("./final_results.txt", "\n" + 
