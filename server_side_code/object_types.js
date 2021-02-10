@@ -9,7 +9,7 @@ for (var i = 0; i < rows.length; i++) {
 	objectInfo.push(rows[i].toString().split(','));
 }
 
-objectInfo = objectInfo.splice(1,objectInfo.length - 3);
+objectInfo = objectInfo.splice(1,objectInfo.length - 2);
 
 objectTypes = [];
 answerKeys = [ [], [], [], [], [] ];
