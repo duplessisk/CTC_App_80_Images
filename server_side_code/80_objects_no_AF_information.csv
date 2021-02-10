@@ -1,25 +1,25 @@
 ORIGINAL_NAME,TEST_NAME,ANSWER,BUCKET
-Object9,object00,Not Cell,CK/EpCAM Foci
-Object 233,object01,Not Cell,Fluorescent Artifact
-Object10,object02,Not Cell,Fluorescent Artifact
-Object102,object03,Not Cell,White Blood Cell
-Object101,object04,Not Cell,White Blood Cell
-Object100,object05,Not Cell,White Blood Cell
-Object59,object06,Not Cell,White Blood Cell
-Object 225,object07,Not Cell,White Blood Cell
-Object58,object08,Not Cell,White Blood Cell
-Object 224,object09,Not Cell,White Blood Cell
-Object 223,object10,Not Cell,White Blood Cell
-Object90,object11,Not Cell,CK/EpCAM Foci
-Object 222,object12,Not Cell,White Blood Cell
-Object112,object13,Not Cell,White Blood Cell
-Object118,object14,Not Cell,CK/EpCAM Foci
-Object214,object15,Not Cell,CK/EpCAM Foci
-Object142,object16,Not Cell,White Blood Cell
-Object88,object17,Not Cell,CK/EpCAM Foci
-Object89,object18,Not Cell,CK/EpCAM Foci
-Object98,object19,Not Cell,White Blood Cell
-Object47,object20,Not Cell,White Blood Cell
+Object133,object00,Not Cell,Fluorescent Artifact
+Object19,object01,Not Cell,Apoptotic CTC
+Object108,object02,Not Cell,White Blood Cell
+Object72,object03,Not Cell,Apoptotic CTC
+Object1,object04,Cell,CTC
+Object18,object05,Not Cell,Apoptotic CTC
+Object61,object06,Not Cell,CK/EpCAM Foci
+Object74,object07,Cell,CTC
+Object 215,object08,Cell,CTC
+Object 216,object09,Cell,CTC
+Object71,object10,Not Cell,Skin Squamous Cell
+Object120,object11,Cell,CTC
+Object121,object12,Cell,CTC
+Object27,object13,Not Cell,Apoptotic CTC
+Object28,object14,Not Cell,Apoptotic CTC
+Object29,object15,Cell,CTC
+Object30,object16,Cell,CTC
+Object39,object17,Cell,CTC
+Object193,object18,Cell,CTC
+Object122,object19,Cell,CTC
+Object147,object20,Not Cell,Fluorescent Artifact
 Object128,object21,Not Cell,Fluorescent Artifact
 Object150,object22,Not Cell,Fluorescent Artifact
 Object140,object23,Not Cell,CK/EpCAM Foci
@@ -58,25 +58,24 @@ Object3,object55,Cell,CTC
 Object20,object56,Cell,CTC
 Object36,object57,Cell,CTC
 Object62,object58,Not Cell,Fluorescent Artifact
-Object133,object59,Not Cell,Fluorescent Artifact
-Object19,object60,Not Cell,Apoptotic CTC
-Object108,object61,Not Cell,White Blood Cell
-Object72,object62,Not Cell,Apoptotic CTC
-Object1,object63,Cell,CTC
-Object18,object64,Not Cell,Apoptotic CTC
-Object61,object65,Not Cell,CK/EpCAM Foci
-Object74,object66,Cell,CTC
-Object 215,object67,Cell,CTC
-Object 216,object68,Cell,CTC
-Object71,object69,Not Cell,Skin Squamous Cell
-Object120,object70,Cell,CTC
-Object121,object71,Cell,CTC
-Object27,object72,Not Cell,Apoptotic CTC
-Object28,object73,Not Cell,Apoptotic CTC
-Object29,object74,Cell,CTC
-Object30,object75,Cell,CTC
-Object39,object76,Cell,CTC
-Object193,object77,Cell,CTC
-Object122,object78,Cell,CTC
-Object147,object79,Not Cell,Fluorescent Artifact
-,,,
+Object9,object59,Not Cell,CK/EpCAM Foci
+Object 233,object60,Not Cell,Fluorescent Artifact
+Object10,object61,Not Cell,Fluorescent Artifact
+Object102,object62,Not Cell,White Blood Cell
+Object101,object63,Not Cell,White Blood Cell
+Object100,object64,Not Cell,White Blood Cell
+Object59,object65,Not Cell,White Blood Cell
+Object 225,object66,Not Cell,White Blood Cell
+Object58,object67,Not Cell,White Blood Cell
+Object 224,object68,Not Cell,White Blood Cell
+Object 223,object69,Not Cell,White Blood Cell
+Object90,object70,Not Cell,CK/EpCAM Foci
+Object 222,object71,Not Cell,White Blood Cell
+Object112,object72,Not Cell,White Blood Cell
+Object118,object73,Not Cell,CK/EpCAM Foci
+Object214,object74,Not Cell,CK/EpCAM Foci
+Object142,object75,Not Cell,White Blood Cell
+Object88,object76,Not Cell,CK/EpCAM Foci
+Object89,object77,Not Cell,CK/EpCAM Foci
+Object98,object78,Not Cell,White Blood Cell
+Object47,object79,Not Cell,White Blood Cell

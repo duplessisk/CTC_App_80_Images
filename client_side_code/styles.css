@@ -202,6 +202,13 @@ body {
     display: inline-block;
 }
 
+
+/* Instructions Page */
+#nextBtnInstructionsPageDiv {
+    margin-top: 2vw;
+}
+
+
 /* page 1 */
 
 #returnToReviewPageBtn.show {
