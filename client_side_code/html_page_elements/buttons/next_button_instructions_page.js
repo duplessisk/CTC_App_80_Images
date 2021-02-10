@@ -10,5 +10,4 @@ nextBtnInstructionsPage.className = "btn";
 nextBtnInstructionsPage.id = "nextBtnInstructionsPage";
 nextBtnInstructionsPage.name = "btn";
 nextBtnInstructionsPage.value = "Next";
-document.querySelector("#nextBtnInstructionsPageDiv")
-    .appendChild(nextBtnInstructionsPage);
+document.querySelector("#nextBtnInstructionsPageDiv").appendChild(nextBtnInstructionsPage);
