@@ -100,7 +100,7 @@ function addNullButton(pagesContainSkippedQuestions) {
     for (var i = 0; i < NUM_PAGES; i++) {
         if (pagesContainSkippedQuestions[i] == "true") {
             var pageNullBtn = document.createElement('button');
-            pageNullBtn.innerHTML = "Page " + pages[i];
+            pageNullBtn.innerHTML = "Page " + (i + 1);
             pageNullBtn.className = "null-btns";
             pageNullBtn.name = "btn";
             pageNullBtn.value = "page" + pages[i] + "Null";

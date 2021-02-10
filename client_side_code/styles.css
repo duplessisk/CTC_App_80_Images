@@ -28,7 +28,7 @@ body {
 }
 
 #headerImage {
-    margin-left: 16%;
+    margin-left: 15%;
     width: 70%;
     height: auto;
     position: fixed;
@@ -37,7 +37,7 @@ body {
 }
 
 #headerImageDiv {
-    margin-bottom: 16.5vw;
+    margin-bottom: 15.5vw;
 }
 
 /* login page */
@@ -103,7 +103,8 @@ body {
 
 #progressPageDiv {
     margin-top: -4%;
-    margin-left: 51.25%;
+    margin-left: 51%;
+    /* margin-left: 51.25%; */
     font-family: Arial;
     font-size: 1.25vw;
 }
@@ -209,7 +210,8 @@ body {
     padding-bottom: 0.1vw;
     margin-bottom: 1vw;
     margin-top: 0vw;
-    margin-left: 52.23%;
+    /* margin-left: 52.23%; */
+    margin-left: 51.75%;
     background-color: RGB(100,98,98);
 }
 
