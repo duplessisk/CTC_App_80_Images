@@ -203,7 +203,6 @@ app.post("/html_pages/review_page", function(request,response) {
             
             var totalIncorrect = getTotalIncorrect(totalWrongByType);
 
-            writeResultsData(totalIncorrect);
             writeResultsFile(request, totalIncorrect, totalWrongByType,
                  numObjectsByType, wrongObjectsByType);
 
@@ -418,7 +417,6 @@ function redirectPage(request, response, path1, path2, path3) {
  */
 function postAllObjectPaths() {
     [allObjectsByType, numObjectsByType] = setAllObjectPaths();
-    writeObjectPaths(allObjectsByType, "all_object_paths");
     return numObjectsByType;
 }
 
@@ -464,7 +462,6 @@ function setAllObjectPaths() {
 function postWrongObjectPaths(wrongObjectsByPage) {
     [wrongObjectsByType,totalWrongByType] = 
         setWrongObjectPaths(wrongObjectsByPage);
-    writeObjectPaths(wrongObjectsByType, "wrong_object_paths");
     return [wrongObjectsByType,totalWrongByType];
 }
 
@@ -530,31 +527,6 @@ function getTotalIncorrect(totalWrongByType) {
 }
 
 /**
- * Writes either wrong object or all object data to JSON file that's sent to 
- * the client side.
- * @param {Map} objectsByType - Contains objects (either wrong or all) whose 
- *                              data needs to be written to a JSON file.
- * @param {String} fileName - File to write data to.
- */
-function writeObjectPaths(objectsByType,fileName) {
-    fs.writeFile("./client_side_code/" + fileName + ".json", "", function(){
-        var objectsByTypeKeys = Array.from(objectsByType.keys());
-        for (var i = 0; i < objectsByTypeKeys.length; i++) {
-            for (var j = 0; j < objectsByType.get(objectsByTypeKeys[i]).length; 
-                j++) {
-                    var thisObjectObject = {};
-                    thisObjectObject[objectsByTypeKeys[i]] =
-                    objectsByType.get(objectsByTypeKeys[i])[j];
-                    fs.appendFileSync("./client_side_code/" + fileName +
-                        ".json", JSON.stringify(thisObjectObject, null, 4), 
-                            function(){});
-            }
-        }
-    });   
-}
-
-
-/**
  * Returns the type of this object.
  * @param {Array} allObjectTypes - Contains type of all objects.
  * @param {String} objectNum - String representation of object number.
@@ -567,24 +539,6 @@ function getThisObjectType(allObjectTypes,objectNum) {
     } else {
         return allObjectTypes[Number(objectNum)];
     }
-}
-
-/**
- * Computes and writes result data (overall score and score by object type)
- * that will be displayed on the client side.
- * @param {Map} numObjectsByType - Contains number of objects by type
- * @param {Map} totalWrongByType - Contains number of objects user answered 
- *                                  incorrectly by type.
- * @param {Number} totalIncorrect - Total number of incorrect objects 
- *                                  (type agnostic)  
- */
-function writeResultsData(totalIncorrect) {
-
-    var totalIncorrectString = setTotalIncorrect(totalIncorrect);
-
-    fs.writeFile("./client_side_code/results_data.json",  
-        totalIncorrectString, function() {
-    });
 }
 
 /**
