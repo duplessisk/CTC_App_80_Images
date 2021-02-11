@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const path = require("path");
 const fs = require("fs");
 const bodyParser = require("body-parser");
-const answerKeys = require("./object_types");
+const answerKey = require("./object_types");
 const objectTypes = require("./object_types");
 const nodemailer = require("nodemailer");
 require("dotenv").config({ path: path.resolve(__dirname, './.env') });
@@ -302,7 +302,7 @@ function processPage(request, pageNumber, notComingFromReviewPage) {
                 function() {
                     if (notComingFromReviewPage) {
 
-                        answerKey = answerKeys.answerKeys[pageNumber - 1];
+                        answerKey = answerKey.answerKey[pageNumber - 1];
                         var clientResponses = getClientResponses(request);
     
                         setWrongObjectsByPage(request, answerKey, clientResponses, 
