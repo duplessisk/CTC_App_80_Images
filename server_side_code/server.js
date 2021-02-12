@@ -483,7 +483,7 @@ function setWrongObjectPaths(wrongObjectsByPage) {
             var objectNum = wrongObjectsByPage[i][j];
             var objectPath = '/static/object_answers/object' + objectNum + 
                 'answer.png';
-
+            
             var thisObjectType = getThisObjectType(allObjectTypes,objectNum);
             if (wrongObjectsByType.has(thisObjectType)) {
                 totalWrongByType.set(thisObjectType, 
