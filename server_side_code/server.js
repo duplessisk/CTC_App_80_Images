@@ -607,18 +607,26 @@ function fileContents(objectType, numObjectsByType, totalWrongByType,
             granularMessage += ", ";
         }
         var wrongObjectNumber = wrongObjectsByType.get(objectType)[i];
-        var wrongObjectNumberIndex;
-        if (wrongObjectNumber.charAt(i) == '0') {
-            wrongObjectNumberIndex = Number(wrongObjectNumber.charAt(1));
-        } else {
-            wrongObjectNumberIndex = Number(wrongObjectNumber);
-        }
-        granularMessage += wrongObjectNumber + "(" + 
-            originalObjectNumberArr[wrongObjectNumberIndex] + ")";
+        var wrongObjectNumberIndex = 
+            getWrongObjectNumberIndex(wrongObjectNumber);
+        granularMessage += originalObjectNumberArr[wrongObjectNumberIndex];
     }
     granularMessage += "\n";
     return globalMessage + granularMessage;
 }
+
+/**
+ * 
+ * @param {*} wrongObjectNumber - 
+ */
+function getWrongObjectNumberIndex(wrongObjectNumber) {
+    if (wrongObjectNumber.charAt(i) == '0') {
+        return Number(wrongObjectNumber.charAt(1));
+    } else {
+        return Number(wrongObjectNumber);
+    }
+}
+
 
 /**
  * Sends email containing final_results.text (client performance) to the admin.
