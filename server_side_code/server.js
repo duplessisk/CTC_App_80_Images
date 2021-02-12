@@ -191,7 +191,7 @@ app.post("/html_pages/review_page", function(request,response) {
         } else if (btnClicked == "pageEightNull") {
             processPage(request,8,false);
             redirectPage(request, response,'','','/html_pages/page_8');
-        }else if (clientData.previouslySubmitted) {
+        } else if (clientData.previouslySubmitted) {
             response.redirect('/html_pages/form_already_submitted_page');
         } else {
 
@@ -275,7 +275,6 @@ function initClientDocument(request, response) {
 
             }
         });
-
 }
 
 /**
@@ -462,7 +461,7 @@ function setAllObjectPaths() {
  */
 function postWrongObjectPaths(wrongObjectsByPage) {
     [wrongObjectsByType,totalWrongByType] = 
-        setWrongObjectPaths(wrongObjectsByPage);
+        setWrongObjectNums(wrongObjectsByPage);
     return [wrongObjectsByType,totalWrongByType];
 }
 
@@ -472,7 +471,7 @@ function postWrongObjectPaths(wrongObjectsByPage) {
  * @return - Map containing wrong object paths by type and map containing 
  *           number of wrong objects by type.
  */
-function setWrongObjectPaths(wrongObjectsByPage) {
+function setWrongObjectNums(wrongObjectsByPage) {
 
     var allObjectTypes = objectTypes.objectTypes;
 
@@ -481,14 +480,12 @@ function setWrongObjectPaths(wrongObjectsByPage) {
     for (var i = 0; i < 8; i++) {
         for (var j = 0; j < wrongObjectsByPage[i].length; j++) {
             var objectNum = wrongObjectsByPage[i][j];
-            var objectPath = '/static/object_answers/object' + objectNum + 
-                'answer.png';
             
             var thisObjectType = getThisObjectType(allObjectTypes,objectNum);
             if (wrongObjectsByType.has(thisObjectType)) {
                 totalWrongByType.set(thisObjectType, 
                     totalWrongByType.get(thisObjectType) + 1);
-                wrongObjectsByType.get(thisObjectType).push(objectPath);
+                wrongObjectsByType.get(thisObjectType).push(objectNum);
             }
         }
     }
@@ -540,20 +537,6 @@ function getThisObjectType(allObjectTypes,objectNum) {
     } else {
         return allObjectTypes[Number(objectNum)];
     }
-}
-
-/**
- * Returns JSON String representing the total number of incorrect responses
- * by the client.
- * @param {Number} totalIncorrect - total number of incorrect objects 
- *                                  (type agnostic).
- * @return - JSON String representing total number of incorrect responses by 
- *           the client.
- */
-function setTotalIncorrect(totalIncorrect) {
-    totalIncorrectObject = {};
-    totalIncorrectObject["totalIncorrect"] = totalIncorrect;
-    return JSON.stringify(totalIncorrectObject, null, 4);
 }
 
 /**
@@ -623,8 +606,7 @@ function fileContents(objectType, numObjectsByType, totalWrongByType,
         if (i != 0) {
             granularMessage += ", ";
         }
-        var wrongObjectNumber = wrongObjectsByType.get(objectType)[i]
-            .substring(29,31);
+        var wrongObjectNumber = wrongObjectsByType.get(objectType)[i];
         var wrongObjectNumberIndex;
         if (wrongObjectNumber.charAt(i) == '0') {
             wrongObjectNumberIndex = Number(wrongObjectNumber.charAt(1));
