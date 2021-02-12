@@ -632,7 +632,7 @@ function fileContents(objectType, numObjectsByType, totalWrongByType,
             wrongObjectNumberIndex = Number(wrongObjectNumber);
         }
         granularMessage += wrongObjectNumber + "(" + 
-            originalObjectNumberArr[wrongNumberIndex] + ")";
+            originalObjectNumberArr[wrongObjectNumberIndex] + ")";
     }
     granularMessage += "\n";
     return globalMessage + granularMessage;
