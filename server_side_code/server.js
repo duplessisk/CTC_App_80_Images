@@ -608,7 +608,7 @@ function fileContents(objectType, numObjectsByType, totalWrongByType,
         }
         var wrongObjectNumber = wrongObjectsByType.get(objectType)[i];
         var wrongObjectNumberIndex = 
-            getWrongObjectNumberIndex(wrongObjectNumber);
+            getWrongObjectNumberIndex(i,wrongObjectNumber);
         granularMessage += originalObjectNumberArr[wrongObjectNumberIndex];
     }
     granularMessage += "\n";
@@ -617,9 +617,11 @@ function fileContents(objectType, numObjectsByType, totalWrongByType,
 
 /**
  * 
+ * @param {*} i - 
  * @param {*} wrongObjectNumber - 
+ * @return - 
  */
-function getWrongObjectNumberIndex(wrongObjectNumber) {
+function getWrongObjectNumberIndex(i, wrongObjectNumber) {
     if (wrongObjectNumber.charAt(i) == '0') {
         return Number(wrongObjectNumber.charAt(1));
     } else {
