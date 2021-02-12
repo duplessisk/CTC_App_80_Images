@@ -8,14 +8,18 @@ function main() {
 
     populateObjectInfo(objectInfo,rows);
 
-    //      page:  1   2   3   4   5   6   7   8
-    answerKey = [ [] ,[] ,[] ,[] ,[], [], [], [] ];
+        //      page:  1   2   3   4   5   6   7   8
+    answerKeys = [ [] ,[] ,[] ,[] ,[], [], [], [] ];
     objectTypes = [];
+    originalObjectNumbers = [];
     var objectNumbers = new Map();
 
-    setKeys(objectNumbers,objectInfo,answerKey,objectTypes);
+    setKeys(objectNumbers,objectInfo,answerKeys,objectTypes,originalObjectNumbers);
 
-    exports.answerKey = answerKey;
+    renameObjects(objectNumbers);
+
+    exports.originalObjectNumbers = originalObjectNumbers;
+    exports.answerKeys = answerKeys;
     exports.objectTypes = objectTypes;
 
 }
@@ -46,30 +50,65 @@ function getFileContents() {
 }
 
 /**
- * Populates the answerKey and objectTypes arrays based on the excel sheet.
+ * Populates the answerKeys and objectTypes arrays based on the excel sheet.
  * @param {Map} objectNumbers - contains the image number associated with 
  *                              each object.
  * @param {Array} objectInfo - contains each row of excel data.
- * @param {Array} answerKey - Contains the answers for each object.
+ * @param {Array} answerKeys - Contains the answers for each object.
  * @param {Array} objectTypes - Contains type of each object.
  */
-function setKeys(objectNumbers,objectInfo,answerKey,objectTypes) {
+function setKeys(objectNumbers,objectInfo,answerKeys,objectTypes,originalObjectNumbers) {
     for (var i = 0; i < 8; i++) {
         for (j = 0; j < 10; j++) {
             var num;
             if (i == 0) {
                 num = j;
-                objectNumbers.set(objectInfo[num][0], '0' + String(num));
+                var originalObjectNumber = objectInfo[num][0].split('t')[1].trim();
+                originalObjectNumbers.push(originalObjectNumber);
+                objectNumbers.set(originalObjectNumber, '0' + String(num));
             } else {
                 num = Number(String(i) + String(j));
-                objectNumbers.set(objectInfo[num][0], String(num));
+                var originalObjectNumber = objectInfo[num][0].split('t')[1].trim();
+                originalObjectNumbers.push(originalObjectNumber);
+                objectNumbers.set(originalObjectNumber, String(num));
             }
-            answerKey[i].push(objectInfo[num][2] == "Cell");
+            answerKeys[i].push(objectInfo[num][2] == "Cell");
             objectTypes.push(objectInfo[num][3]);
         }
     }
 
-    console.log();
-    console.log("objectNumbers: ");
-    console.log(objectNumbers);
+}
+
+/**
+ * 
+ * @param {*} objectNumbers - 
+ */
+function renameObjects(objectNumbers) {
+
+    fs.readdirSync('./client_side_code/original_object_images').forEach(function(file,e) {
+        var originalObjectNumber = getOriginalObjectNumber(file);
+        changeObjectName(objectNumbers, file, originalObjectNumber);
+    });
+}
+
+/**
+ * 
+ * @param {File} file -  
+ */
+function getOriginalObjectNumber(file) {
+    var originalObjectNumber = file.split('t')[1];
+    return originalObjectNumber.split('.')[0].trim();
+}
+
+/**
+ * 
+ * @param {*} file - 
+ * @param {*} originalObjectNumber - 
+ */
+function changeObjectName(objectNumbers, file, originalObjectNumber) {
+    var updatedObjectNumber = objectNumbers.get(originalObjectNumber);
+    fs.rename('./client_side_code/original_object_images/' + file, 
+        './client_side_code/final_object_images/object' + updatedObjectNumber + 
+            '.png', function(e) {
+    });
 }

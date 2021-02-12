@@ -6,21 +6,21 @@ Breakdown:
 0 out of 80 (0%)
 
 object Type Apoptotic CTC: Wrong 8 out of 8 (0%)
-Objects Wrong: 00, 02, 04, 12, 13, 39, 46, 50
+Objects Wrong: 00(undefined), 02(undefined), 04(undefined), 12(39), 13(undefined), 39(16), 46(undefined), 50(undefined)
 
 object Type White Blood Cell: Wrong 25 out of 25 (0%)
-Objects Wrong: 01, 20, 25, 26, 27, 30, 33, 34, 36, 37, 38, 41, 43, 63, 64, 65, 66, 67, 68, 69, 70, 72, 73, 76, 79
+Objects Wrong: 01(undefined), 20(56), 25(undefined), 26(47), 27(12), 30(15), 33(undefined), 34(undefined), 36(57), 37(46), 38(45), 41(undefined), 43(undefined), 63(undefined), 64(undefined), 65(undefined), 66(undefined), 67(undefined), 68(undefined), 69(undefined), 70(undefined), 72(02), 73(35), 76(undefined), 79(undefined)
 
 object Type CTC: Wrong 21 out of 21 (0%)
-Objects Wrong: 03, 06, 07, 08, 10, 11, 14, 15, 16, 17, 18, 29, 31, 44, 45, 51, 52, 54, 55, 56, 57
+Objects Wrong: 03(undefined), 06(undefined), 07(undefined), 08(undefined), 10(62), 11(31), 14(undefined), 15(undefined), 16(undefined), 17(undefined), 18(04), 29(14), 31(undefined), 44(undefined), 45(50), 51(undefined), 52(undefined), 54(undefined), 55(undefined), 56(undefined), 57(undefined)
 
 object Type CK/EpCAM Foci: Wrong 14 out of 14 (0%)
-Objects Wrong: 05, 23, 32, 35, 40, 47, 48, 49, 60, 71, 74, 75, 77, 78
+Objects Wrong: 05(undefined), 23(undefined), 32(undefined), 35(undefined), 40(undefined), 47(20), 48(27), 49(25), 60(undefined), 71(09), 74(06), 75(undefined), 77(undefined), 78(undefined)
 
 object Type Skin Squamous Cell: Wrong 1 out of 1 (0%)
-Objects Wrong: 09
+Objects Wrong: 09(undefined)
 
 object Type Fluorescent Artifact: Wrong 11 out of 11 (0%)
-Objects Wrong: 19, 21, 22, 24, 28, 42, 53, 58, 59, 61, 62
+Objects Wrong: 19(00), 21(52), 22(undefined), 24(undefined), 28(13), 42(undefined), 53(undefined), 58(68), 59(66), 61(05), 62(58)
 
-Time Stamp: 2/10/2021, 11:33:26 AM
+Time Stamp: 2/11/2021, 8:19:50 AM

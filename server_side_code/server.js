@@ -6,7 +6,8 @@ const cookieParser = require('cookie-parser');
 const path = require("path");
 const fs = require("fs");
 const bodyParser = require("body-parser");
-const answerKey = require("./object_types");
+const originalObjectNumbers = require("./object_types");
+const answerKeys = require("./object_types");
 const objectTypes = require("./object_types");
 const nodemailer = require("nodemailer");
 require("dotenv").config({ path: path.resolve(__dirname, './.env') });
@@ -31,7 +32,8 @@ const schema = new mongoose.Schema({
     wrongObjectsByPage: Object,
 });
 
-const Client = mongoose.model('80imagesclients', schema);
+const Client = mongoose.model('test', schema);
+// const Client = mongoose.model('80imagesclients', schema);
 
 console.log();
 console.log("server starting...");
@@ -301,8 +303,7 @@ function processPage(request, pageNumber, notComingFromReviewPage) {
             {wrongObjectsByPage: updatedWrongObjectsByPage}, {upsert: false},
                 function() {
                     if (notComingFromReviewPage) {
-
-                        answerKey = answerKey.answerKey[pageNumber - 1];
+                        answerKey = answerKeys.answerKeys[pageNumber - 1];
                         var clientResponses = getClientResponses(request);
     
                         setWrongObjectsByPage(request, answerKey, clientResponses, 
@@ -315,7 +316,7 @@ function processPage(request, pageNumber, notComingFromReviewPage) {
 /**
  * Stores answer key, client responses, and determines wrong object paths for
  * each page in the client side form.
- * @param {Array} answerKey - Contains all answers for this page. 
+ * @param {Array} answerKeys - Contains all answers for this page. 
  * @param {http} request - Client http request to the server.
  * @param {number} pageNumber - App page number (1-5) client is on.
  */
@@ -365,11 +366,11 @@ function setClientResponses(clientResponses) {
 /**
  * Stores each object the client got incorrect.
  * @param {http} request - Client http request to the server.
- * @param {Array} answerKey - Contains all answers for this page. 
+ * @param {Array} answerKeys - Contains all answers for this page. 
  * @param {Array} clientResponses - Contains client responses for each object.
  * @param {number} pageNumber - App page number (1-8) client is on.
  */
-function setWrongObjectsByPage(request,answerKey,clientResponses,pageNumber) {
+function setWrongObjectsByPage(request,answerKeys,clientResponses,pageNumber) {
 
     var id = request.cookies['session_id'];
 
@@ -378,7 +379,7 @@ function setWrongObjectsByPage(request,answerKey,clientResponses,pageNumber) {
         var updatedWrongObjectsByPage = clientData.wrongObjectsByPage;
 
         for (var i = 0; i < 10; i++) {
-            if (answerKey[i] != clientResponses[i] || 
+            if (answerKeys[i] != clientResponses[i] || 
                 clientResponses[i] == null) {  
                 var objectNumber = String(pageNumber) + String(i);
                 updatedWrongObjectsByPage[pageNumber].push(objectNumber);
@@ -608,6 +609,8 @@ function writeResultsFile(request, totalIncorrect, totalWrongByType,
  */
 function fileContents(objectType, numObjectsByType, totalWrongByType,
                       wrongObjectsByType) {
+    
+    var originalObjectNumberArr = originalObjectNumbers.originalObjectNumbers;
     var percentageIncorrect = 100*totalWrongByType.get(objectType)/
         numObjectsByType.get(objectType);
     var percentageCorrect = (100 - Math.round(percentageIncorrect));
@@ -620,8 +623,16 @@ function fileContents(objectType, numObjectsByType, totalWrongByType,
         if (i != 0) {
             granularMessage += ", ";
         }
-        granularMessage += wrongObjectsByType.get(objectType)[i]
+        var wrongObjectNumber = wrongObjectsByType.get(objectType)[i]
             .substring(29,31);
+        var wrongObjectNumberIndex;
+        if (wrongObjectNumber.charAt(i) == '0') {
+            wrongObjectNumberIndex = Number(wrongObjectNumber.charAt(1));
+        } else {
+            wrongObjectNumberIndex = Number(wrongObjectNumber);
+        }
+        granularMessage += wrongObjectNumber + "(" + 
+            originalObjectNumberArr[wrongNumberIndex] + ")";
     }
     granularMessage += "\n";
     return globalMessage + granularMessage;
