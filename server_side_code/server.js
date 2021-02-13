@@ -38,47 +38,13 @@ const Client = mongoose.model('test', schema);
 console.log();
 console.log("server starting...");
 
+
 // Rename object image names
 const originalObjectNumberArr = originalObjectNumbers.originalObjectNumbers;
 const answerKey = answerKeys.answerKeys;
 const allObjectTypes = objectTypes.objectTypes;
 
 renameObjects(originalObjectNumberArr);
-
-
-/**
- * 
- * @param {*} objectNumbers - 
- */
-function renameObjects(objectNumbers) {
-
-    fs.readdirSync('/static/original_object_images').forEach(function(file,e) {
-        var originalObjectNumber = getOriginalObjectNumber(file);
-        changeObjectName(objectNumbers, file, originalObjectNumber);
-    });
-}
-
-/**
- * 
- * @param {File} file -  
- */
-function getOriginalObjectNumber(file) {
-    var originalObjectNumber = file.split('t')[1];
-    return originalObjectNumber.split('.')[0].trim();
-}
-
-/**
- * 
- * @param {*} file - 
- * @param {*} originalObjectNumber - 
- */
-function changeObjectName(objectNumbers, file, originalObjectNumber) {
-    var updatedObjectNumber = objectNumbers.get(originalObjectNumber);
-    fs.rename('/static/original_object_images/' + file, 
-        '/static/final_object_images/object' + updatedObjectNumber + 
-            '.png', function(e) {
-    });
-}
 
 
 // welcome page
@@ -269,7 +235,43 @@ app.get("/html_pages/form_already_submitted_page", function(request,response) {
         '/html_pages/form_already_submitted_page.html'));
 });
 
+
 app.listen(process.env.PORT || 3000);
+
+
+/**
+ * 
+ * @param {*} objectNumbers - 
+ */
+function renameObjects(objectNumbers) {
+
+    fs.readdirSync('/static/original_object_images').forEach(function(file,e) {
+        var originalObjectNumber = getOriginalObjectNumber(file);
+        changeObjectName(objectNumbers, file, originalObjectNumber);
+    });
+}
+
+/**
+ * 
+ * @param {File} file -  
+ */
+function getOriginalObjectNumber(file) {
+    var originalObjectNumber = file.split('t')[1];
+    return originalObjectNumber.split('.')[0].trim();
+}
+
+/**
+ * 
+ * @param {*} file - 
+ * @param {*} originalObjectNumber - 
+ */
+function changeObjectName(objectNumbers, file, originalObjectNumber) {
+    var updatedObjectNumber = objectNumbers.get(originalObjectNumber);
+    fs.rename('/static/original_object_images/' + file, 
+        '/static/final_object_images/object' + updatedObjectNumber + 
+            '.png', function(e) {
+    });
+}
 
 /**
  * Sets a cookie for each client.
