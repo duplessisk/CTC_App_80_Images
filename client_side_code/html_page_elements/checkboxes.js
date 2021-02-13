@@ -1,5 +1,4 @@
-// Creates checkboxes on pages 1-5.
-
+// Creates checkboxes and images on pages 1-8.
 for (var i = 0; i < 10; i++) {
     var newQuestion = document.createElement('div');
     document.querySelector("#form").appendChild(newQuestion);
@@ -23,7 +22,7 @@ for (var i = 0; i < 10; i++) {
             "</div>" + 
                 "</div>" +
                 "<div class= 'cell-image-row-container'>" + 
-                    "<img src='/static/object_images/object" + imageNum + i +".png' alt='This image was originally intended to display a row of cell images' id='cellImage'>" + 
+                    "<img src='/static/final_object_images/object" + imageNum + i + ".png' alt='This image was originally intended to display a row of cell images' id='cellImage'>" + 
                 "</div>" + 
             "</div>" + 
         "</div>"

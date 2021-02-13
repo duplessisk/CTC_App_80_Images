@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const path = require("path");
 const fs = require("fs");
 const bodyParser = require("body-parser");
+const originalObjectNumbers = require("./object_types");
 const answerKeys = require("./object_types");
 const objectTypes = require("./object_types");
 const nodemailer = require("nodemailer");
@@ -31,10 +32,20 @@ const schema = new mongoose.Schema({
     wrongObjectsByPage: Object,
 });
 
-const Client = mongoose.model('80imagesclients', schema);
+const Client = mongoose.model('test', schema);
+// const Client = mongoose.model('80imagesclients', schema);
 
 console.log();
 console.log("server starting...");
+
+
+// Rename object image names
+const originalObjectNumberArr = originalObjectNumbers.originalObjectNumbers;
+const answerKey = answerKeys.answerKeys;
+const allObjectTypes = objectTypes.objectTypes;
+
+renameObjects(originalObjectNumberArr);
+
 
 // welcome page
 app.get("/", function(request,response) {
@@ -189,7 +200,7 @@ app.post("/html_pages/review_page", function(request,response) {
         } else if (btnClicked == "pageEightNull") {
             processPage(request,8,false);
             redirectPage(request, response,'','','/html_pages/page_8');
-        }else if (clientData.previouslySubmitted) {
+        } else if (clientData.previouslySubmitted) {
             response.redirect('/html_pages/form_already_submitted_page');
         } else {
 
@@ -224,7 +235,43 @@ app.get("/html_pages/form_already_submitted_page", function(request,response) {
         '/html_pages/form_already_submitted_page.html'));
 });
 
+
 app.listen(process.env.PORT || 3000);
+
+
+/**
+ * 
+ * @param {*} objectNumbers - 
+ */
+function renameObjects(objectNumbers) {
+
+    fs.readdirSync('/static/original_object_images').forEach(function(file,e) {
+        var originalObjectNumber = getOriginalObjectNumber(file);
+        changeObjectName(objectNumbers, file, originalObjectNumber);
+    });
+}
+
+/**
+ * 
+ * @param {File} file -  
+ */
+function getOriginalObjectNumber(file) {
+    var originalObjectNumber = file.split('t')[1];
+    return originalObjectNumber.split('.')[0].trim();
+}
+
+/**
+ * 
+ * @param {*} file - 
+ * @param {*} originalObjectNumber - 
+ */
+function changeObjectName(objectNumbers, file, originalObjectNumber) {
+    var updatedObjectNumber = objectNumbers.get(originalObjectNumber);
+    fs.rename('/static/original_object_images/' + file, 
+        '/static/final_object_images/object' + updatedObjectNumber + 
+            '.png', function(e) {
+    });
+}
 
 /**
  * Sets a cookie for each client.
@@ -273,7 +320,6 @@ function initClientDocument(request, response) {
 
             }
         });
-
 }
 
 /**
@@ -301,11 +347,10 @@ function processPage(request, pageNumber, notComingFromReviewPage) {
             {wrongObjectsByPage: updatedWrongObjectsByPage}, {upsert: false},
                 function() {
                     if (notComingFromReviewPage) {
-
-                        answerKey = answerKeys.answerKeys[pageNumber - 1];
+                        thisPageAnswerKey = answerKey[pageNumber - 1];
                         var clientResponses = getClientResponses(request);
     
-                        setWrongObjectsByPage(request, answerKey, clientResponses, 
+                        setWrongObjectsByPage(request, thisPageAnswerKey, clientResponses, 
                             pageNumber - 1);
                     }
         });
@@ -315,7 +360,7 @@ function processPage(request, pageNumber, notComingFromReviewPage) {
 /**
  * Stores answer key, client responses, and determines wrong object paths for
  * each page in the client side form.
- * @param {Array} answerKey - Contains all answers for this page. 
+ * @param {Array} answerKeys - Contains all answers for this page. 
  * @param {http} request - Client http request to the server.
  * @param {number} pageNumber - App page number (1-5) client is on.
  */
@@ -365,11 +410,11 @@ function setClientResponses(clientResponses) {
 /**
  * Stores each object the client got incorrect.
  * @param {http} request - Client http request to the server.
- * @param {Array} answerKey - Contains all answers for this page. 
+ * @param {Array} answerKeys - Contains all answers for this page. 
  * @param {Array} clientResponses - Contains client responses for each object.
  * @param {number} pageNumber - App page number (1-8) client is on.
  */
-function setWrongObjectsByPage(request,answerKey,clientResponses,pageNumber) {
+function setWrongObjectsByPage(request,answerKeys,clientResponses,pageNumber) {
 
     var id = request.cookies['session_id'];
 
@@ -378,7 +423,7 @@ function setWrongObjectsByPage(request,answerKey,clientResponses,pageNumber) {
         var updatedWrongObjectsByPage = clientData.wrongObjectsByPage;
 
         for (var i = 0; i < 10; i++) {
-            if (answerKey[i] != clientResponses[i] || 
+            if (answerKeys[i] != clientResponses[i] || 
                 clientResponses[i] == null) {  
                 var objectNumber = String(pageNumber) + String(i);
                 updatedWrongObjectsByPage[pageNumber].push(objectNumber);
@@ -427,8 +472,6 @@ function postAllObjectPaths() {
  */
 function setAllObjectPaths() {
 
-    var allObjectTypes = objectTypes.objectTypes;
-
     var allObjectsByType = new Map();
     var numObjectsByType = new Map();
 
@@ -461,7 +504,7 @@ function setAllObjectPaths() {
  */
 function postWrongObjectPaths(wrongObjectsByPage) {
     [wrongObjectsByType,totalWrongByType] = 
-        setWrongObjectPaths(wrongObjectsByPage);
+        setWrongObjectNums(wrongObjectsByPage);
     return [wrongObjectsByType,totalWrongByType];
 }
 
@@ -471,7 +514,7 @@ function postWrongObjectPaths(wrongObjectsByPage) {
  * @return - Map containing wrong object paths by type and map containing 
  *           number of wrong objects by type.
  */
-function setWrongObjectPaths(wrongObjectsByPage) {
+function setWrongObjectNums(wrongObjectsByPage) {
 
     var allObjectTypes = objectTypes.objectTypes;
 
@@ -480,14 +523,12 @@ function setWrongObjectPaths(wrongObjectsByPage) {
     for (var i = 0; i < 8; i++) {
         for (var j = 0; j < wrongObjectsByPage[i].length; j++) {
             var objectNum = wrongObjectsByPage[i][j];
-            var objectPath = '/static/object_answers/object' + objectNum + 
-                'answer.png';
-
+            
             var thisObjectType = getThisObjectType(allObjectTypes,objectNum);
             if (wrongObjectsByType.has(thisObjectType)) {
                 totalWrongByType.set(thisObjectType, 
                     totalWrongByType.get(thisObjectType) + 1);
-                wrongObjectsByType.get(thisObjectType).push(objectPath);
+                wrongObjectsByType.get(thisObjectType).push(objectNum);
             }
         }
     }
@@ -542,20 +583,6 @@ function getThisObjectType(allObjectTypes,objectNum) {
 }
 
 /**
- * Returns JSON String representing the total number of incorrect responses
- * by the client.
- * @param {Number} totalIncorrect - total number of incorrect objects 
- *                                  (type agnostic).
- * @return - JSON String representing total number of incorrect responses by 
- *           the client.
- */
-function setTotalIncorrect(totalIncorrect) {
-    totalIncorrectObject = {};
-    totalIncorrectObject["totalIncorrect"] = totalIncorrect;
-    return JSON.stringify(totalIncorrectObject, null, 4);
-}
-
-/**
  * Writes the final_results.txt that will be emailed to the admin.
  * @param {http} request - Client http request to the server.
  * @param {Map} totalWrongByType - Contains number of incorrectly answered 
@@ -579,9 +606,10 @@ function writeResultsFile(request, totalIncorrect, totalWrongByType,
             function() {
         fs.appendFileSync("./final_results.txt", "Breakdown: " + "\n", 
         function() {});
-        fs.appendFileSync("./final_results.txt", (80 - totalIncorrect) + 
-        " out of " + 80 + " (" + Math.round(100*((80-totalIncorrect)/80))
-            + "%)" + "\n", function() {});
+        fs.appendFileSync("./final_results.txt", "Overall Score: " + 
+            (80 - totalIncorrect) + " out of " + 80 + " (" + 
+                Math.round(100*((80-totalIncorrect)/80)) + "%)" + "\n", 
+                    function() {});
         var keys = Array.from(totalWrongByType.keys());
         for (var i = 0; i < keys.length; i++) {
             fs.appendFileSync("./final_results.txt", "\n" + 
@@ -608,7 +636,7 @@ function writeResultsFile(request, totalIncorrect, totalWrongByType,
  */
 function fileContents(objectType, numObjectsByType, totalWrongByType,
                       wrongObjectsByType) {
-    var percentageIncorrect = 100*totalWrongByType.get(objectType)/
+        var percentageIncorrect = 100*totalWrongByType.get(objectType)/
         numObjectsByType.get(objectType);
     var percentageCorrect = (100 - Math.round(percentageIncorrect));
     var globalMessage = "object Type " + objectType + ": Wrong " + 
@@ -620,12 +648,29 @@ function fileContents(objectType, numObjectsByType, totalWrongByType,
         if (i != 0) {
             granularMessage += ", ";
         }
-        granularMessage += wrongObjectsByType.get(objectType)[i]
-            .substring(29,31);
+        var wrongObjectNumber = wrongObjectsByType.get(objectType)[i];
+        var wrongObjectNumberIndex = 
+            getWrongObjectNumberIndex(i,wrongObjectNumber);
+        granularMessage += originalObjectNumberArr[wrongObjectNumberIndex];
     }
     granularMessage += "\n";
     return globalMessage + granularMessage;
 }
+
+/**
+ * 
+ * @param {*} i - 
+ * @param {*} wrongObjectNumber - 
+ * @return - 
+ */
+function getWrongObjectNumberIndex(i, wrongObjectNumber) {
+    if (wrongObjectNumber.charAt(i) == '0') {
+        return Number(wrongObjectNumber.charAt(1));
+    } else {
+        return Number(wrongObjectNumber);
+    }
+}
+
 
 /**
  * Sends email containing final_results.text (client performance) to the admin.
