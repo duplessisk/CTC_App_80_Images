@@ -38,6 +38,49 @@ const Client = mongoose.model('test', schema);
 console.log();
 console.log("server starting...");
 
+// Rename object image names
+const originalObjectNumberArr = originalObjectNumbers.originalObjectNumbers;
+const answerKey = answerKeys.answerKeys;
+const allObjectTypes = objectTypes.objectTypes;
+
+renameObjects(originalObjectNumberArr);
+
+
+/**
+ * 
+ * @param {*} objectNumbers - 
+ */
+function renameObjects(objectNumbers) {
+
+    fs.readdirSync('/static/original_object_images').forEach(function(file,e) {
+        var originalObjectNumber = getOriginalObjectNumber(file);
+        changeObjectName(objectNumbers, file, originalObjectNumber);
+    });
+}
+
+/**
+ * 
+ * @param {File} file -  
+ */
+function getOriginalObjectNumber(file) {
+    var originalObjectNumber = file.split('t')[1];
+    return originalObjectNumber.split('.')[0].trim();
+}
+
+/**
+ * 
+ * @param {*} file - 
+ * @param {*} originalObjectNumber - 
+ */
+function changeObjectName(objectNumbers, file, originalObjectNumber) {
+    var updatedObjectNumber = objectNumbers.get(originalObjectNumber);
+    fs.rename('/static/original_object_images/' + file, 
+        '/static/final_object_images/object' + updatedObjectNumber + 
+            '.png', function(e) {
+    });
+}
+
+
 // welcome page
 app.get("/", function(request,response) {
     response.sendFile(path.join(__dirname + '/html_pages/welcome_page.html'));
@@ -302,10 +345,10 @@ function processPage(request, pageNumber, notComingFromReviewPage) {
             {wrongObjectsByPage: updatedWrongObjectsByPage}, {upsert: false},
                 function() {
                     if (notComingFromReviewPage) {
-                        answerKey = answerKeys.answerKeys[pageNumber - 1];
+                        thisPageAnswerKey = answerKey[pageNumber - 1];
                         var clientResponses = getClientResponses(request);
     
-                        setWrongObjectsByPage(request, answerKey, clientResponses, 
+                        setWrongObjectsByPage(request, thisPageAnswerKey, clientResponses, 
                             pageNumber - 1);
                     }
         });
@@ -426,8 +469,6 @@ function postAllObjectPaths() {
  *           of objects by type. 
  */
 function setAllObjectPaths() {
-
-    var allObjectTypes = objectTypes.objectTypes;
 
     var allObjectsByType = new Map();
     var numObjectsByType = new Map();
@@ -593,9 +634,7 @@ function writeResultsFile(request, totalIncorrect, totalWrongByType,
  */
 function fileContents(objectType, numObjectsByType, totalWrongByType,
                       wrongObjectsByType) {
-    
-    var originalObjectNumberArr = originalObjectNumbers.originalObjectNumbers;
-    var percentageIncorrect = 100*totalWrongByType.get(objectType)/
+        var percentageIncorrect = 100*totalWrongByType.get(objectType)/
         numObjectsByType.get(objectType);
     var percentageCorrect = (100 - Math.round(percentageIncorrect));
     var globalMessage = "object Type " + objectType + ": Wrong " + 
