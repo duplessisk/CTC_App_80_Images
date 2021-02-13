@@ -43,7 +43,7 @@ function populateObjectInfo(objectInfo,rows) {
  */
 function getFileContents() {
     var fileContents = fs.readFileSync(__dirname + 
-        '/80_objects_no_AF_information.csv');
+        '/80_objects_no_AF_information_test2.csv');
 
     var rows = fileContents.toString().split(new RegExp('\r?\n'));
     return rows.splice(1,rows.length - 2);

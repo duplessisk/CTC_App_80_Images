@@ -563,9 +563,10 @@ function writeResultsFile(request, totalIncorrect, totalWrongByType,
             function() {
         fs.appendFileSync("./final_results.txt", "Breakdown: " + "\n", 
         function() {});
-        fs.appendFileSync("./final_results.txt", (80 - totalIncorrect) + 
-        " out of " + 80 + " (" + Math.round(100*((80-totalIncorrect)/80))
-            + "%)" + "\n", function() {});
+        fs.appendFileSync("./final_results.txt", "Overall Score: " + 
+            (80 - totalIncorrect) + " out of " + 80 + " (" + 
+                Math.round(100*((80-totalIncorrect)/80)) + "%)" + "\n", 
+                    function() {});
         var keys = Array.from(totalWrongByType.keys());
         for (var i = 0; i < keys.length; i++) {
             fs.appendFileSync("./final_results.txt", "\n" + 

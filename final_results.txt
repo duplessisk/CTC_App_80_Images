@@ -3,24 +3,24 @@ Test Taker: Kyle Duplessis
 Company: Rarecyte
 
 Breakdown: 
-8 out of 80 (10%)
+Overall Score: 0 out of 80 (0%)
 
-object Type Apoptotic CTC: Wrong 6 out of 8 (25%)
-Objects Wrong: 72, 18, 27, 28, 12, 37
+object Type CK/EpCAM Foci: Wrong 13 out of 13 (0%)
+Objects Wrong: 5, 6, 8, 82, 92, 113, 138, 144, 161, 204, 210, 236, 237
 
-object Type White Blood Cell: Wrong 22 out of 25 (12%)
-Objects Wrong: 108, 49, 159, 48, 155, 132, 189, 190, 191, 217, 110, 102, 101, 100, 59, 225, 58, 224, 222, 112, 142, 98
+object Type Fluoresce: Wrong 4 out of 4 (0%)
+Objects Wrong: 7, 13, 145, 151
 
-object Type CTC: Wrong 20 out of 21 (5%)
-Objects Wrong: 1, 74, 215, 216, 121, 29, 30, 39, 193, 122, 157, 11, 2, 38, 234, 21, 130, 3, 20, 36
+object Type CTC: Wrong 25 out of 25 (0%)
+Objects Wrong: 15, 17, 23, 25, 33, 34, 35, 44, 65, 69, 75, 77, 93, 105, 106, 114, 115, 117, 124, 125, 136, 137, 143, 194, 195
 
-object Type CK/EpCAM Foci: Wrong 12 out of 14 (14%)
-Objects Wrong: 61, 140, 111, 73, 26, 139, 149, 90, 118, 214, 88, 89
+object Type Apoptotic CTC: Wrong 7 out of 7 (0%)
+Objects Wrong: 16, 22, 24, 32, 40, 42, 43
 
-object Type Skin Squamous Cell: Wrong 1 out of 1 (0%)
-Objects Wrong: 71
+object Type White Blood Cell: Wrong 25 out of 25 (0%)
+Objects Wrong: 50, 51, 52, 53, 67, 68, 80, 91, 97, 103, 104, 123, 127, 134, 152, 163, 187, 188, 218, 219, 220, 221, 228, 229, 231
 
-object Type Fluorescent Artifact: Wrong 11 out of 11 (0%)
-Objects Wrong: 147, 128, 150, 141, 86, 4, 148, 62, 133, 233, 10
+object Type Fluorescent Artifact: Wrong 6 out of 6 (0%)
+Objects Wrong: 146, 153, 154, 232, 238, 239
 
-Time Stamp: 2/12/2021, 6:50:29 AM
+Time Stamp: 2/13/2021, 4:07:00 AM
