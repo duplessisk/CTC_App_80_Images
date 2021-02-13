@@ -6,9 +6,9 @@ const cookieParser = require('cookie-parser');
 const path = require("path");
 const fs = require("fs");
 const bodyParser = require("body-parser");
-const originalObjectNumbers = require("./object_types");
-const answerKeys = require("./object_types");
-const objectTypes = require("./object_types");
+const originalObjectNumbers = require("./server_side_code/object_types");
+const answerKeys = require("./server_side_code/object_types");
+const objectTypes = require("./server_side_code/object_types");
 const nodemailer = require("nodemailer");
 require("dotenv").config({ path: path.resolve(__dirname, './.env') });
 
@@ -49,124 +49,124 @@ renameObjects(originalObjectNumberArr);
 
 // welcome page
 app.get("/", function(request,response) {
-    response.sendFile(path.join(__dirname + '/html_pages/welcome_page.html'));
+    response.sendFile(path.join(__dirname + '/server_side_code/html_pages/welcome_page.html'));
 });
-app.post("/html_pages/welcome_page", function(request,response) {
-    response.redirect('/html_pages/login_page');
+app.post("/server_side_code/html_pages/welcome_page", function(request,response) {
+    response.redirect('/server_side_code/html_pages/login_page');
 });
 
 // login page
-app.get("/html_pages/login_page", function(request,response) {
-    response.sendFile(path.join(__dirname + '/html_pages/login_page.html'));
+app.get("/server_side_code/html_pages/login_page", function(request,response) {
+    response.sendFile(path.join(__dirname + '/server_side_code/html_pages/login_page.html'));
 });
-app.post("/html_pages/login_page", function(request,response) {
+app.post("/server_side_code/html_pages/login_page", function(request,response) {
     setClientCookie(request, response);
-    response.redirect('/html_pages/instructions_page');
+    response.redirect('/server_side_code/html_pages/instructions_page');
 });
 
 // instructions page
-app.get("/html_pages/instructions_page", function(request,response) {
+app.get("/server_side_code/html_pages/instructions_page", function(request,response) {
     initClientDocument(request, response);
 });
-app.post("/html_pages/instructions_page", function(request,response) {
-    response.redirect('/html_pages/page_1');
+app.post("/server_side_code/html_pages/instructions_page", function(request,response) {
+    response.redirect('/server_side_code/html_pages/page_1');
 });
 
 // instructions page 2 (after the instructions have already been viewed once)
-app.get("/html_pages/instructions_page_2", function(request,response) {
+app.get("/server_side_code/html_pages/instructions_page_2", function(request,response) {
     response.sendFile(path.join(__dirname + 
-        '/html_pages/instructions_page_2.html'));
+        '/server_side_code/html_pages/instructions_page_2.html'));
 });
-app.post("/html_pages/instructions_page_2", function(request,response) {
-    response.redirect('/html_pages/page_1');
+app.post("/server_side_code/html_pages/instructions_page_2", function(request,response) {
+    response.redirect('/server_side_code/html_pages/page_1');
 });
 
 
 // page 1
-app.get("/html_pages/page_1", function(request,response) {
-    response.sendFile(path.join(__dirname + '/html_pages/page_1.html'));
+app.get("/server_side_code/html_pages/page_1", function(request,response) {
+    response.sendFile(path.join(__dirname + '/server_side_code/html_pages/page_1.html'));
 });
-app.post("/html_pages/page_1", function(request,response) {
+app.post("/server_side_code/html_pages/page_1", function(request,response) {
     processPage(request, 1, true);                      
-    redirectPage(request, response, '/html_pages/instructions_page_2', 
-        '/html_pages/page_2', '/html_pages/review_page');
+    redirectPage(request, response, '/server_side_code/html_pages/instructions_page_2', 
+        '/server_side_code/html_pages/page_2', '/server_side_code/html_pages/review_page');
 });
 
 // page 2
-app.get("/html_pages/page_2", function(request,response) {
-    response.sendFile(path.join(__dirname + '/html_pages/page_2.html'));
+app.get("/server_side_code/html_pages/page_2", function(request,response) {
+    response.sendFile(path.join(__dirname + '/server_side_code/html_pages/page_2.html'));
 });
-app.post("/html_pages/page_2", function(request,response) {
+app.post("/server_side_code/html_pages/page_2", function(request,response) {
     processPage(request, 2, true);
-    redirectPage(request, response, '/html_pages/page_1', '/html_pages/page_3',
-        '/html_pages/review_page');
+    redirectPage(request, response, '/server_side_code/html_pages/page_1', '/server_side_code/html_pages/page_3',
+        '/server_side_code/html_pages/review_page');
 });
 
 // page 3
-app.get("/html_pages/page_3", function(request,response) {
-    response.sendFile(path.join(__dirname + '/html_pages/page_3.html'));
+app.get("/server_side_code/html_pages/page_3", function(request,response) {
+    response.sendFile(path.join(__dirname + '/server_side_code/html_pages/page_3.html'));
 });
-app.post("/html_pages/page_3", function(request,response) {
+app.post("/server_side_code/html_pages/page_3", function(request,response) {
     processPage(request, 3, true);
-    redirectPage(request, response, '/html_pages/page_2', '/html_pages/page_4',
-        '/html_pages/review_page');
+    redirectPage(request, response, '/server_side_code/html_pages/page_2', '/server_side_code/html_pages/page_4',
+        '/server_side_code/html_pages/review_page');
 });
 
 // page 4
-app.get("/html_pages/page_4", function(request,response) {
-    response.sendFile(path.join(__dirname + '/html_pages/page_4.html'));
+app.get("/server_side_code/html_pages/page_4", function(request,response) {
+    response.sendFile(path.join(__dirname + '/server_side_code/html_pages/page_4.html'));
 });
-app.post("/html_pages/page_4", function(request,response) {
+app.post("/server_side_code/html_pages/page_4", function(request,response) {
     processPage(request, 4, true);
-    redirectPage(request, response, '/html_pages/page_3','/html_pages/page_5',
-        '/html_pages/review_page');
+    redirectPage(request, response, '/server_side_code/html_pages/page_3','/server_side_code/html_pages/page_5',
+        '/server_side_code/html_pages/review_page');
 });
 
 // page 5
-app.get("/html_pages/page_5", function(request,response) {
-    response.sendFile(path.join(__dirname + '/html_pages/page_5.html'));
+app.get("/server_side_code/html_pages/page_5", function(request,response) {
+    response.sendFile(path.join(__dirname + '/server_side_code/html_pages/page_5.html'));
 });
-app.post("/html_pages/page_5", function(request,response) {
+app.post("/server_side_code/html_pages/page_5", function(request,response) {
     processPage(request, 5, true);
-    redirectPage(request, response, '/html_pages/page_4','/html_pages/page_6',
-        '/html_pages/review_page');
+    redirectPage(request, response, '/server_side_code/html_pages/page_4','/server_side_code/html_pages/page_6',
+        '/server_side_code/html_pages/review_page');
 });
 
 // page 6
-app.get("/html_pages/page_6", function(request,response) {
-    response.sendFile(path.join(__dirname + '/html_pages/page_6.html'));
+app.get("/server_side_code/html_pages/page_6", function(request,response) {
+    response.sendFile(path.join(__dirname + '/server_side_code/html_pages/page_6.html'));
 });
-app.post("/html_pages/page_6", function(request,response) {
+app.post("/server_side_code/html_pages/page_6", function(request,response) {
     processPage(request, 6, true);
-    redirectPage(request, response, '/html_pages/page_5','/html_pages/page_7',
-        '/html_pages/review_page');
+    redirectPage(request, response, '/server_side_code/html_pages/page_5','/server_side_code/html_pages/page_7',
+        '/server_side_code/html_pages/review_page');
 });
 
 // page 6
-app.get("/html_pages/page_7", function(request,response) {
-    response.sendFile(path.join(__dirname + '/html_pages/page_7.html'));
+app.get("/server_side_code/html_pages/page_7", function(request,response) {
+    response.sendFile(path.join(__dirname + '/server_side_code/html_pages/page_7.html'));
 });
-app.post("/html_pages/page_7", function(request,response) {
+app.post("/server_side_code/html_pages/page_7", function(request,response) {
     processPage(request, 7, true);
-    redirectPage(request, response, '/html_pages/page_6','/html_pages/page_8',
-        '/html_pages/review_page');
+    redirectPage(request, response, '/server_side_code/html_pages/page_6','/server_side_code/html_pages/page_8',
+        '/server_side_code/html_pages/review_page');
 });
 
 // page 8
-app.get("/html_pages/page_8", function(request,response) {
-    response.sendFile(path.join(__dirname + '/html_pages/page_8.html'));
+app.get("/server_side_code/html_pages/page_8", function(request,response) {
+    response.sendFile(path.join(__dirname + '/server_side_code/html_pages/page_8.html'));
 });
-app.post("/html_pages/page_8", function(request,response) {
+app.post("/server_side_code/html_pages/page_8", function(request,response) {
     processPage(request, 8, true);
-    redirectPage(request, response, '/html_pages/page_7',
-        '/html_pages/review_page','/html_pages/review_page');
+    redirectPage(request, response, '/server_side_code/html_pages/page_7',
+        '/server_side_code/html_pages/review_page','/server_side_code/html_pages/review_page');
 });
 
 // review page
-app.get("/html_pages/review_page", function(request,response) {
-    response.sendFile(path.join(__dirname + '/html_pages/review_page.html'));
+app.get("/server_side_code/html_pages/review_page", function(request,response) {
+    response.sendFile(path.join(__dirname + '/server_side_code/html_pages/review_page.html'));
 });
-app.post("/html_pages/review_page", function(request,response) {
+app.post("/server_side_code/html_pages/review_page", function(request,response) {
     
     var id = request.cookies['session_id'];
 
@@ -175,33 +175,33 @@ app.post("/html_pages/review_page", function(request,response) {
         var btnClicked = request.body.btn;
         if (btnClicked == "Previous") {
             processPage(request,8,false);
-            redirectPage(request, response, '/html_pages/page_8','','');
+            redirectPage(request, response, '/server_side_code/html_pages/page_8','','');
         } else if (btnClicked == "pageOneNull") {
             processPage(request, 1,false);
-            redirectPage(request, response,'','','/html_pages/page_1');
+            redirectPage(request, response,'','','/server_side_code/html_pages/page_1');
         } else if (btnClicked == "pageTwoNull") {
             processPage(request,2,false);
-            redirectPage(request, response,'','','/html_pages/page_2');
+            redirectPage(request, response,'','','/server_side_code/html_pages/page_2');
         } else if (btnClicked == "pageThreeNull") {
             processPage(request,3,false);
-            redirectPage(request, response,'','','/html_pages/page_3');
+            redirectPage(request, response,'','','/server_side_code/html_pages/page_3');
         } else if (btnClicked == "pageFourNull") {
             processPage(request,4,false);
-            redirectPage(request, response,'','','/html_pages/page_4');
+            redirectPage(request, response,'','','/server_side_code/html_pages/page_4');
         } else if (btnClicked == "pageFiveNull") {
             processPage(request,5,false);
-            redirectPage(request, response,'','','/html_pages/page_5');
+            redirectPage(request, response,'','','/server_side_code/html_pages/page_5');
         } else if (btnClicked == "pageSixNull") {
             processPage(request,6,false);
-            redirectPage(request, response,'','','/html_pages/page_6');
+            redirectPage(request, response,'','','/server_side_code/html_pages/page_6');
         } else if (btnClicked == "pageSevenNull") {
             processPage(request,7,false);
-            redirectPage(request, response,'','','/html_pages/page_7');
+            redirectPage(request, response,'','','/server_side_code/html_pages/page_7');
         } else if (btnClicked == "pageEightNull") {
             processPage(request,8,false);
-            redirectPage(request, response,'','','/html_pages/page_8');
+            redirectPage(request, response,'','','/server_side_code/html_pages/page_8');
         } else if (clientData.previouslySubmitted) {
-            response.redirect('/html_pages/form_already_submitted_page');
+            response.redirect('/server_side_code/html_pages/form_already_submitted_page');
         } else {
 
             Client.findOneAndUpdate({clientId: id}, 
@@ -219,20 +219,20 @@ app.post("/html_pages/review_page", function(request,response) {
 
             sendEmailWithResults(request);
 
-            response.redirect('/html_pages/results_page');
+            response.redirect('/server_side_code/html_pages/results_page');
         }
     });
 });
 
 // results page 
-app.get("/html_pages/results_page", function(request,response) {
-    response.sendFile(path.join(__dirname + '/html_pages/results_page.html'));
+app.get("/server_side_code/html_pages/results_page", function(request,response) {
+    response.sendFile(path.join(__dirname + '/server_side_code/html_pages/results_page.html'));
 });
 
 // page already submitted
-app.get("/html_pages/form_already_submitted_page", function(request,response) {
+app.get("/server_side_code/html_pages/form_already_submitted_page", function(request,response) {
     response.sendFile(path.join(__dirname + 
-        '/html_pages/form_already_submitted_page.html'));
+        '/server_side_code/html_pages/form_already_submitted_page.html'));
 });
 
 
@@ -245,9 +245,10 @@ app.listen(process.env.PORT || 3000);
  */
 function renameObjects(objectNumbers) {
 
-    fs.readdirSync('/static/original_object_images').forEach(function(file,e) {
-        var originalObjectNumber = getOriginalObjectNumber(file);
-        changeObjectName(objectNumbers, file, originalObjectNumber);
+    fs.readdirSync(__dirname + '/client_side_code/original_object_images')
+        .forEach(function(file,e) {
+            var originalObjectNumber = getOriginalObjectNumber(file);
+            changeObjectName(objectNumbers, file, originalObjectNumber);
     });
 }
 
@@ -267,8 +268,8 @@ function getOriginalObjectNumber(file) {
  */
 function changeObjectName(objectNumbers, file, originalObjectNumber) {
     var updatedObjectNumber = objectNumbers.get(originalObjectNumber);
-    fs.rename('/static/original_object_images/' + file, 
-        '/static/final_object_images/object' + updatedObjectNumber + 
+    fs.rename(__dirname + '/client_side_code/original_object_images/' + file, 
+        __dirname + '/client_side_code/final_object_images/object' + updatedObjectNumber + 
             '.png', function(e) {
     });
 }
@@ -299,7 +300,7 @@ function initClientDocument(request, response) {
         Client.findOne({clientId: id}, function(e,clientData) {
             if (clientData != null && clientData.previouslySubmitted) {
                 response.sendFile(path.join(__dirname + 
-                    '/html_pages/form_already_submitted_page.html'));
+                    '/server_side_code/html_pages/form_already_submitted_page.html'));
             } else {
                 const newClient = new Client({ 
                     clientId: id,
@@ -316,7 +317,7 @@ function initClientDocument(request, response) {
                                 function() {});
 
                 response.sendFile(path.join(__dirname + 
-                    '/html_pages/instructions_page.html'));
+                    '/server_side_code/html_pages/instructions_page.html'));
 
             }
         });

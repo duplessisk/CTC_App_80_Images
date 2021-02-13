@@ -1,1 +1,1 @@
-web: node server_side_code/server
+web: node server
