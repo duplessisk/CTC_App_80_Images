@@ -245,7 +245,7 @@ app.listen(process.env.PORT || 3000);
  */
 function renameObjects(objectNumbers) {
 
-    fs.readdirSync(__dirname + '/static/original_object_images')
+    fs.readdirSync(__dirname + "/../client_side_code/original_object_images")
         .forEach(function(file,e) {
             var originalObjectNumber = getOriginalObjectNumber(file);
             changeObjectName(objectNumbers, file, originalObjectNumber);
@@ -268,8 +268,8 @@ function getOriginalObjectNumber(file) {
  */
 function changeObjectName(objectNumbers, file, originalObjectNumber) {
     var updatedObjectNumber = objectNumbers.get(originalObjectNumber);
-    fs.rename(__dirname + '/static/original_object_images/' + file, 
-        __dirname + '/static/final_object_images/object' + updatedObjectNumber + 
+    fs.rename(__dirname + "/../client_side_code/original_object_images/" + file, 
+        __dirname + "/../client_side_code/final_object_images/object" + updatedObjectNumber + 
             '.png', function(e) {
     });
 }
