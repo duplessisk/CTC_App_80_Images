@@ -38,16 +38,6 @@ const Client = mongoose.model('test', schema);
 console.log();
 console.log("server starting...");
 
-
-// Rename object image names
-const originalObjectNumber = originalObjectNumbers.originalObjectNumbers;
-console.log(originalObjectNumberMap);
-const answerKey = answerKeys.answerKeys;
-const allObjectTypes = objectTypes.objectTypes;
-
-renameObjects(originalObjectNumberArr);
-
-
 // welcome page
 app.get("/", function(request,response) {
     response.sendFile(path.join(__dirname + '/html_pages/welcome_page.html'));
@@ -236,44 +226,7 @@ app.get("/html_pages/form_already_submitted_page", function(request,response) {
         '/html_pages/form_already_submitted_page.html'));
 });
 
-
 app.listen(process.env.PORT || 3000);
-
-
-/**
- * 
- * @param {*} objectNumbers - 
- */
-function renameObjects(objectNumbers) {
-
-    fs.readdirSync(__dirname + "/../client_side_code/original_object_images")
-        .forEach(function(file,e) {
-            var originalObjectNumber = getOriginalObjectNumber(file);
-            changeObjectName(objectNumbers, file, originalObjectNumber);
-    });
-}
-
-/**
- * 
- * @param {File} file -  
- */
-function getOriginalObjectNumber(file) {
-    var originalObjectNumber = file.split('t')[1];
-    return originalObjectNumber.split('.')[0].trim();
-}
-
-/**
- * 
- * @param {*} file - 
- * @param {*} originalObjectNumber - 
- */
-function changeObjectName(objectNumbers, file, originalObjectNumber) {
-    var updatedObjectNumber = objectNumbers.get(originalObjectNumber);
-    fs.rename(__dirname + "/../client_side_code/original_object_images/" + file, 
-        __dirname + "/../client_side_code/final_object_images/object" + updatedObjectNumber + 
-            '.png', function(e) {
-    });
-}
 
 /**
  * Sets a cookie for each client.
@@ -349,10 +302,10 @@ function processPage(request, pageNumber, notComingFromReviewPage) {
             {wrongObjectsByPage: updatedWrongObjectsByPage}, {upsert: false},
                 function() {
                     if (notComingFromReviewPage) {
-                        thisPageAnswerKey = answerKey[pageNumber - 1];
+                        answerKey = answerKeys.answerKeys[pageNumber - 1];
                         var clientResponses = getClientResponses(request);
     
-                        setWrongObjectsByPage(request, thisPageAnswerKey, clientResponses, 
+                        setWrongObjectsByPage(request, answerKey, clientResponses, 
                             pageNumber - 1);
                     }
         });
@@ -473,6 +426,8 @@ function postAllObjectPaths() {
  *           of objects by type. 
  */
 function setAllObjectPaths() {
+
+    var allObjectTypes = objectTypes.objectTypes;
 
     var allObjectsByType = new Map();
     var numObjectsByType = new Map();
@@ -608,10 +563,9 @@ function writeResultsFile(request, totalIncorrect, totalWrongByType,
             function() {
         fs.appendFileSync("./final_results.txt", "Breakdown: " + "\n", 
         function() {});
-        fs.appendFileSync("./final_results.txt", "Overall Score: " + 
-            (80 - totalIncorrect) + " out of " + 80 + " (" + 
-                Math.round(100*((80-totalIncorrect)/80)) + "%)" + "\n", 
-                    function() {});
+        fs.appendFileSync("./final_results.txt", (80 - totalIncorrect) + 
+        " out of " + 80 + " (" + Math.round(100*((80-totalIncorrect)/80))
+            + "%)" + "\n", function() {});
         var keys = Array.from(totalWrongByType.keys());
         for (var i = 0; i < keys.length; i++) {
             fs.appendFileSync("./final_results.txt", "\n" + 
@@ -638,7 +592,9 @@ function writeResultsFile(request, totalIncorrect, totalWrongByType,
  */
 function fileContents(objectType, numObjectsByType, totalWrongByType,
                       wrongObjectsByType) {
-        var percentageIncorrect = 100*totalWrongByType.get(objectType)/
+    
+    var originalObjectNumberArr = originalObjectNumbers.originalObjectNumbers;
+    var percentageIncorrect = 100*totalWrongByType.get(objectType)/
         numObjectsByType.get(objectType);
     var percentageCorrect = (100 - Math.round(percentageIncorrect));
     var globalMessage = "object Type " + objectType + ": Wrong " + 
