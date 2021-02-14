@@ -16,6 +16,8 @@ function main() {
 
     setKeys(objectNumbers,objectInfo,answerKeys,objectTypes,originalObjectNumbers);
 
+    renameObjects(objectNumbers);
+
     exports.originalObjectNumbers = originalObjectNumbers;
     exports.answerKeys = answerKeys;
     exports.objectTypes = objectTypes;
@@ -75,4 +77,38 @@ function setKeys(objectNumbers,objectInfo,answerKeys,objectTypes,originalObjectN
         }
     }
 
+}
+
+/**
+ * 
+ * @param {*} objectNumbers - 
+ */
+function renameObjects(objectNumbers) {
+
+    fs.readdirSync(__dirname + '/../client_side_code/original_object_images').forEach(function(file,e) {
+        var originalObjectNumber = getOriginalObjectNumber(file);
+        changeObjectName(objectNumbers, file, originalObjectNumber);
+    });
+}
+
+/**
+ * 
+ * @param {File} file -  
+ */
+function getOriginalObjectNumber(file) {
+    var originalObjectNumber = file.split('t')[1];
+    return originalObjectNumber.split('.')[0].trim();
+}
+
+/**
+ * 
+ * @param {*} file - 
+ * @param {*} originalObjectNumber - 
+ */
+function changeObjectName(objectNumbers, file, originalObjectNumber) {
+    var updatedObjectNumber = objectNumbers.get(originalObjectNumber);
+    fs.rename(__dirname + '/../client_side_code/original_object_images/' + file, 
+        __dirname + '/../client_side_code/final_object_images/object' + 
+            updatedObjectNumber + '.png', function(e) {
+    });
 }
