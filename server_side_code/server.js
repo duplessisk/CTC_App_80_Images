@@ -6,9 +6,9 @@ const cookieParser = require('cookie-parser');
 const path = require("path");
 const fs = require("fs");
 const bodyParser = require("body-parser");
-const originalObjectNumbers = require("./server_side_code/object_types");
-const answerKeys = require("./server_side_code/object_types");
-const objectTypes = require("./server_side_code/object_types");
+const originalObjectNumbers = require("./object_types");
+const answerKeys = require("./object_types");
+const objectTypes = require("./object_types");
 const nodemailer = require("nodemailer");
 require("dotenv").config({ path: path.resolve(__dirname, './.env') });
 
