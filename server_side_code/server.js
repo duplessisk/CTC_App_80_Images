@@ -40,7 +40,8 @@ console.log("server starting...");
 
 
 // Rename object image names
-const originalObjectNumberArr = originalObjectNumbers.originalObjectNumbers;
+const originalObjectNumber = originalObjectNumbers.originalObjectNumbers;
+console.log(originalObjectNumberMap);
 const answerKey = answerKeys.answerKeys;
 const allObjectTypes = objectTypes.objectTypes;
 
