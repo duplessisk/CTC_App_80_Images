@@ -43,7 +43,7 @@ function populateObjectInfo(objectInfo,rows) {
  */
 function getFileContents() {
     var fileContents = fs.readFileSync(__dirname + 
-        '/80_objects_no_AF_information_test2.csv');
+        '/80_objects_AF_information_test1.csv');
 
     var rows = fileContents.toString().split(new RegExp('\r?\n'));
     return rows.splice(1,rows.length - 2);
@@ -96,7 +96,7 @@ function renameObjects(objectNumbers) {
  */
 function getOriginalObjectNumber(file) {
     var originalObjectNumber = file.split('t')[1];
-    return originalObjectNumber.split('.')[0].trim();
+    return originalObjectNumber.split('_')[0].trim();
 }
 
 /**

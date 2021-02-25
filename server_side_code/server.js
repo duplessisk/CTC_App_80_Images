@@ -30,7 +30,7 @@ const schema = new mongoose.Schema({
     wrongObjectsByPage: Object,
 });
 
-const Client = mongoose.model('80imagesclientstest2', schema);
+const Client = mongoose.model('80imagesclientsaftest1', schema);
 
 console.log();
 console.log("server starting...");
