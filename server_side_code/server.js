@@ -649,7 +649,7 @@ function sendEmailWithResults(request) {
         from: process.env.EMAIL_SENDER_ACC,
         to: process.env.EMAIL_RECIEVER_ACC,
         subject: firstName + " " + lastName + ' CTC App Results',
-        text: "80 objects no AF",
+        text: "80 objects AF Test 1",
         attachments: [{
             filename: 'final_results.txt',
             path: './final_results.txt'
