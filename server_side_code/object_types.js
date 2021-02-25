@@ -86,7 +86,7 @@ function setKeys(objectNumbers,objectInfo,answerKeys,objectTypes,originalObjectN
 function renameObjects(objectNumbers) {
     fs.readdirSync(__dirname + '/../client_side_code/original_object_images').forEach(function(file,e) {
         var originalObjectNumber = getOriginalObjectNumber(file);
-        changeObjectName(objectNumbers, file, originalObjectNumber);
+        // changeObjectName(objectNumbers, file, originalObjectNumber);
     });
 }
 
