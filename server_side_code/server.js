@@ -30,7 +30,7 @@ const schema = new mongoose.Schema({
     wrongObjectsByPage: Object,
 });
 
-const Client = mongoose.model('80imagesclientsaftest1', schema);
+const Client = mongoose.model('80imagesclientsaftest2', schema);
 
 console.log();
 console.log("server starting...");
@@ -648,8 +648,8 @@ function sendEmailWithResults(request) {
     let mailOptions = {
         from: process.env.EMAIL_SENDER_ACC,
         to: process.env.EMAIL_RECIEVER_ACC,
-        subject: firstName + " " + lastName + ' 80 objects AF Test 1 Results',
-        text: "80 objects AF Test 1",
+        subject: firstName + " " + lastName + ' 80 objects AF Test 2 Results',
+        text: "80 objects AF Test 2",
         attachments: [{
             filename: 'final_results.txt',
             path: './final_results.txt'
