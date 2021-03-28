@@ -35,6 +35,9 @@ const Client = mongoose.model('80imagesclientsaftest2', schema);
 console.log();
 console.log("server starting...");
 
+const TEST_NAME = fs.readFileSync(__dirname + '/../client_side_code/test_info.txt')
+const NUM_QUESTIONS = 80
+
 // welcome page
 app.get("/", function(request,response) {
     response.sendFile(path.join(__dirname + '/html_pages/welcome_page.html'));
@@ -234,8 +237,15 @@ function setClientCookie(request, response) {
     firstName = request.body.firstName;
     lastName = request.body.lastName;
     company = request.body.company;
+    addressLineOne = request.body.addressLineOne
+    addressLineTwo = request.body.addressLineTwo
+    city = request.body.city
+    state = request.body.state
+    country = request.body.country
+    zipCode = request.body.zipCode
 
-    response.cookie("session_id", firstName + "." + lastName + "." + company);
+    response.cookie("session_id", firstName + "." + lastName + "." + company + "." + addressLineOne + "." +
+        addressLineTwo + "." + city + "." + state + "." + country + "." + zipCode);
 }
 
 /**
@@ -554,15 +564,30 @@ function writeResultsFile(request, totalIncorrect, totalWrongByType,
     firstName = clientInfo[0];
     lastName = clientInfo[1];
     company = clientInfo[2];
+    addressLineOne = clientInfo[3];
+    addressLineTwo = clientInfo[4];
+    city = clientInfo[5];
+    state = clientInfo[6];
+    country = clientInfo[7];
+    zipCode = clientInfo[8];
 
-    fs.writeFile("./final_results.txt", "Test Taker: " + firstName + " " + 
-        lastName + "\n" + "\n" + "Company: " + company + "\n" + "\n", 
-            function() {
-        fs.appendFileSync("./final_results.txt", "Breakdown: " + "\n", 
-        function() {});
-        fs.appendFileSync("./final_results.txt", (80 - totalIncorrect) + 
-        " out of " + 80 + " (" + Math.round(100*((80-totalIncorrect)/80))
-            + "%)" + "\n", function() {});
+
+    fs.writeFile("./final_results.txt","", function() {
+        if (addressLineTwo == ""){
+            fs.appendFileSync("./final_results.txt","Test Taker: " + firstName + " " +
+                lastName + "\n" + "\n" + "Company Info: " + "\n" +  company + "\n" + addressLineOne + "\n"
+                    + city + ", " + state + ", " + country + ", " + zipCode + "\n" + "\n", function() {})
+        } else {
+            fs.appendFileSync("./final_results.txt","Test Taker: " + firstName + " " +
+                lastName + "\n" + "\n" + "Company Info: " + "\n" +  company + "\n" + addressLineOne + "\n" +
+                    addressLineTwo + "\n" + city + ", " + state + ", " + country + ", " + zipCode + "\n" + "\n",
+                        function() {})
+        }
+        fs.appendFileSync("./final_results.txt", "Test: " + TEST_NAME + "\n" + "\n", function() {})
+        fs.appendFileSync("./final_results.txt", "Final Result: ",function() {});
+        fs.appendFileSync("./final_results.txt", (NUM_QUESTIONS - totalIncorrect) +
+        " out of " + 80 + " (" + Math.round(100*((NUM_QUESTIONS-totalIncorrect)/NUM_QUESTIONS))
+            + "%)" + ", " + getPassOrFail(totalIncorrect) + "\n", function() {});
         var keys = Array.from(totalWrongByType.keys());
         for (var i = 0; i < keys.length; i++) {
             fs.appendFileSync("./final_results.txt", "\n" + 
@@ -572,9 +597,35 @@ function writeResultsFile(request, totalIncorrect, totalWrongByType,
         }
         var time = new Date();
         time.setUTCHours(time.getUTCHours() - 8);
-        fs.appendFileSync("./final_results.txt", "\n" + "Time Stamp: " 
-                          + (time.toLocaleString()), function(){});
+        fs.appendFileSync("./final_results.txt", "\n" + "Time Stamp: "  + setTimeFormat(time),
+            function(){});
     });
+}
+
+
+function setTimeFormat(time) {
+    var timeStampString = "";
+    timeStampString += time.getFullYear() + "-"
+    timeStampString += convertMonth(time.getMonth()) + "-";
+    timeStampString += time.getDate() + ", ";
+    timeStampString += time.toLocaleTimeString()
+    return timeStampString;
+}
+
+function convertMonth(month) {
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    return months[parseInt(month, 10) + 1]
+}
+
+/**
+ *
+ */
+function getPassOrFail(totalIncorrect) {
+    if (totalIncorrect > 16) {
+        return "Fail"
+    } else {
+        return "Pass"
+    }
 }
 
 /**
@@ -594,11 +645,11 @@ function fileContents(objectType, numObjectsByType, totalWrongByType,
     var percentageIncorrect = 100*totalWrongByType.get(objectType)/
         numObjectsByType.get(objectType);
     var percentageCorrect = (100 - Math.round(percentageIncorrect));
-    var globalMessage = "object Type " + objectType + ": Wrong " + 
-        totalWrongByType.get(objectType) + " out of " + 
+    var globalMessage = "Object Type " + objectType + ": Correct " +
+        (numObjectsByType.get(objectType) - totalWrongByType.get(objectType)) + " out of " +
             numObjectsByType.get(objectType) + " (" + percentageCorrect + "%)" 
                 + "\n";
-    var granularMessage = "Objects Wrong: ";
+    var granularMessage = "Objects Missed: ";
     for (var i = 0; i < wrongObjectsByType.get(objectType).length; i++) {
         if (i != 0) {
             granularMessage += ", ";
@@ -648,8 +699,7 @@ function sendEmailWithResults(request) {
     let mailOptions = {
         from: process.env.EMAIL_SENDER_ACC,
         to: process.env.EMAIL_RECIEVER_ACC,
-        subject: firstName + " " + lastName + ' 80 objects AF Test 2 Results',
-        text: "80 objects AF Test 2",
+        subject: firstName + " " + lastName + " " + TEST_NAME,
         attachments: [{
             filename: 'final_results.txt',
             path: './final_results.txt'
@@ -657,8 +707,8 @@ function sendEmailWithResults(request) {
     }
 
     transporter.sendMail(mailOptions, function(e,data) {
-        if (error) {
+        if (e) {
             console.log(e);
-        } 
+        }
     });
 }
