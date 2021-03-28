@@ -1,0 +1,81 @@
+Name,Test Number,Answer,Bucket
+Object6,object00,Not Cell,CK/EpCAM Foci
+Object125,object01,Cell,CTC
+Object123,object02,Not Cell,White Blood Cell
+Object40,object03,Not Cell,Apoptotic CTC
+Object238,object04,Not Cell,Fluorescent Artifact
+Object229,object05,Not Cell,White Blood Cell
+Object8,object06,Not Cell,CK/EpCAM Foci
+Object44,object07,Cell,CTC
+Object127,object08,Not Cell,Fluorescent Artifact
+Object68,object09,Not Cell,White Blood Cell
+Object114,object10,Cell,CTC
+Object25,object11,Cell,CTC
+Object35,object12,Cell,CTC
+Object82,object13,Not Cell,CK/EpCAM Foci
+Object134,….,Not Cell,White Blood Cell
+Object33,,Cell,CTC
+Object22,,Not Cell,Apoptotic CTC
+Object221,,Not Cell,White Blood Cell
+Object69,,Cell,CTC
+Object34,,Cell,CTC
+Object103,,Not Cell,White Blood Cell
+Object92,,Not Cell,CK/EpCAM Foci
+Object15,,Cell,CTC
+Object5,,Not Cell,CK/EpCAM Foci
+Object231,,Not Cell,White Blood Cell
+Object113,,Not Cell,CK/EpCAM Foci
+Object151,,Not Cell,Fluorescent Artifact
+Object232,,Not Cell,Fluorescent Artifact
+Object239,,Not Cell,Fluorescent Artifact
+Object137,,Cell,CTC
+Object163,,Not Cell,White Blood Cell
+Object138,,Not Cell,CK/EpCAM Foci
+Object136,,Cell,CTC
+Object80,,Not Cell,White Blood Cell
+Object152,,Not Cell,White Blood Cell
+Object117,,Not Cell,White Blood Cell
+Object43,,Not Cell,Apoptotic CTC
+Object104,,Not Cell,White Blood Cell
+Object53,,Not Cell,White Blood Cell
+Object146,,Not Cell,Fluorescent Artifact
+Object228,,Not Cell,White Blood Cell
+Object187,,Not Cell,White Blood Cell
+Object115,,Cell,CTC
+Object194,,Not Cell,Apoptotic CTC
+Object124,,Cell,CTC
+Object23,,Cell,CTC
+Object24,,Not Cell,Apoptotic CTC
+Object220,,Not Cell,White Blood Cell
+Object91,,Not Cell,White Blood Cell
+Object50,,Not Cell,White Blood Cell
+Object97,,Not Cell,White Blood Cell
+Object195,,Cell,CTC
+Object144,,Not Cell,CK/EpCAM Foci
+Object145,,Not Cell,Fluorescent Artifact
+Object143,,Not Cell,Fluorescent Artifact
+Object236,,Not Cell,CK/EpCAM Foci
+Object218,,Not Cell,White Blood Cell
+Object51,,Not Cell,White Blood Cell
+Object65,,Cell,CTC
+Object237,,Not Cell,CK/EpCAM Foci
+Object75,,Cell,CTC
+Object13,,Not Cell,Fluorescent Artifact
+Object7,,Not Cell,Fluorescent Artifact
+Object105,,Cell,CTC
+Object204,,Not Cell,CK/EpCAM Foci
+Object188,,Not Cell,White Blood Cell
+Object67,,Not Cell,White Blood Cell
+Object42,,Not Cell,Apoptotic CTC
+Object17,,Cell,CTC
+Object154,,Not Cell,Fluorescent Artifact
+Object153,,Not Cell,Fluorescent Artifact
+Object210,,Not Cell,CK/EpCAM Foci
+Object32,,Not Cell,Apoptotic CTC
+Object106,,Cell,CTC
+Object93,,Cell,CTC
+Object77,,Not Cell,Fluorescent Artifact
+Object161,,Not Cell,CK/EpCAM Foci
+Object16,,Not Cell,Apoptotic CTC
+Object219,,Not Cell,White Blood Cell
+Object52,object80,Not Cell,White Blood Cell

@@ -1,5 +1,3 @@
-// Kyle Duplessis
-
 const express = require("express");
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
@@ -32,20 +30,13 @@ const schema = new mongoose.Schema({
     wrongObjectsByPage: Object,
 });
 
-const Client = mongoose.model('test', schema);
-// const Client = mongoose.model('80imagesclients', schema);
+const Client = mongoose.model('80imagesclientsaftest2', schema);
 
 console.log();
 console.log("server starting...");
 
-
-// Rename object image names
-const originalObjectNumberArr = originalObjectNumbers.originalObjectNumbers;
-const answerKey = answerKeys.answerKeys;
-const allObjectTypes = objectTypes.objectTypes;
-
-renameObjects(originalObjectNumberArr);
-
+const TEST_NAME = fs.readFileSync(__dirname + '/../client_side_code/test_info.txt')
+const NUM_QUESTIONS = 80
 
 // welcome page
 app.get("/", function(request,response) {
@@ -235,43 +226,7 @@ app.get("/html_pages/form_already_submitted_page", function(request,response) {
         '/html_pages/form_already_submitted_page.html'));
 });
 
-
 app.listen(process.env.PORT || 3000);
-
-
-/**
- * 
- * @param {*} objectNumbers - 
- */
-function renameObjects(objectNumbers) {
-
-    fs.readdirSync('/static/original_object_images').forEach(function(file,e) {
-        var originalObjectNumber = getOriginalObjectNumber(file);
-        changeObjectName(objectNumbers, file, originalObjectNumber);
-    });
-}
-
-/**
- * 
- * @param {File} file -  
- */
-function getOriginalObjectNumber(file) {
-    var originalObjectNumber = file.split('t')[1];
-    return originalObjectNumber.split('.')[0].trim();
-}
-
-/**
- * 
- * @param {*} file - 
- * @param {*} originalObjectNumber - 
- */
-function changeObjectName(objectNumbers, file, originalObjectNumber) {
-    var updatedObjectNumber = objectNumbers.get(originalObjectNumber);
-    fs.rename('/static/original_object_images/' + file, 
-        '/static/final_object_images/object' + updatedObjectNumber + 
-            '.png', function(e) {
-    });
-}
 
 /**
  * Sets a cookie for each client.
@@ -282,8 +237,15 @@ function setClientCookie(request, response) {
     firstName = request.body.firstName;
     lastName = request.body.lastName;
     company = request.body.company;
+    addressLineOne = request.body.addressLineOne
+    addressLineTwo = request.body.addressLineTwo
+    city = request.body.city
+    state = request.body.state
+    country = request.body.country
+    zipCode = request.body.zipCode
 
-    response.cookie("session_id", firstName + "." + lastName + "." + company);
+    response.cookie("session_id", firstName + "." + lastName + "." + company + "." + addressLineOne + "." +
+        addressLineTwo + "." + city + "." + state + "." + country + "." + zipCode);
 }
 
 /**
@@ -347,10 +309,10 @@ function processPage(request, pageNumber, notComingFromReviewPage) {
             {wrongObjectsByPage: updatedWrongObjectsByPage}, {upsert: false},
                 function() {
                     if (notComingFromReviewPage) {
-                        thisPageAnswerKey = answerKey[pageNumber - 1];
+                        answerKey = answerKeys.answerKeys[pageNumber - 1];
                         var clientResponses = getClientResponses(request);
     
-                        setWrongObjectsByPage(request, thisPageAnswerKey, clientResponses, 
+                        setWrongObjectsByPage(request, answerKey, clientResponses, 
                             pageNumber - 1);
                     }
         });
@@ -471,6 +433,8 @@ function postAllObjectPaths() {
  *           of objects by type. 
  */
 function setAllObjectPaths() {
+
+    var allObjectTypes = objectTypes.objectTypes;
 
     var allObjectsByType = new Map();
     var numObjectsByType = new Map();
@@ -600,16 +564,30 @@ function writeResultsFile(request, totalIncorrect, totalWrongByType,
     firstName = clientInfo[0];
     lastName = clientInfo[1];
     company = clientInfo[2];
+    addressLineOne = clientInfo[3];
+    addressLineTwo = clientInfo[4];
+    city = clientInfo[5];
+    state = clientInfo[6];
+    country = clientInfo[7];
+    zipCode = clientInfo[8];
 
-    fs.writeFile("./final_results.txt", "Test Taker: " + firstName + " " + 
-        lastName + "\n" + "\n" + "Company: " + company + "\n" + "\n", 
-            function() {
-        fs.appendFileSync("./final_results.txt", "Breakdown: " + "\n", 
-        function() {});
-        fs.appendFileSync("./final_results.txt", "Overall Score: " + 
-            (80 - totalIncorrect) + " out of " + 80 + " (" + 
-                Math.round(100*((80-totalIncorrect)/80)) + "%)" + "\n", 
-                    function() {});
+
+    fs.writeFile("./final_results.txt","", function() {
+        if (addressLineTwo == ""){
+            fs.appendFileSync("./final_results.txt","Test Taker: " + firstName + " " +
+                lastName + "\n" + "\n" + "Company Info: " + "\n" +  company + "\n" + addressLineOne + "\n"
+                    + city + ", " + state + ", " + country + ", " + zipCode + "\n" + "\n", function() {})
+        } else {
+            fs.appendFileSync("./final_results.txt","Test Taker: " + firstName + " " +
+                lastName + "\n" + "\n" + "Company Info: " + "\n" +  company + "\n" + addressLineOne + "\n" +
+                    addressLineTwo + "\n" + city + ", " + state + ", " + country + ", " + zipCode + "\n" + "\n",
+                        function() {})
+        }
+        fs.appendFileSync("./final_results.txt", "Test: " + TEST_NAME + "\n" + "\n", function() {})
+        fs.appendFileSync("./final_results.txt", "Final Result: ",function() {});
+        fs.appendFileSync("./final_results.txt", (NUM_QUESTIONS - totalIncorrect) +
+        " out of " + 80 + " (" + Math.round(100*((NUM_QUESTIONS-totalIncorrect)/NUM_QUESTIONS))
+            + "%)" + ", " + getPassOrFail(totalIncorrect) + "\n", function() {});
         var keys = Array.from(totalWrongByType.keys());
         for (var i = 0; i < keys.length; i++) {
             fs.appendFileSync("./final_results.txt", "\n" + 
@@ -619,9 +597,35 @@ function writeResultsFile(request, totalIncorrect, totalWrongByType,
         }
         var time = new Date();
         time.setUTCHours(time.getUTCHours() - 8);
-        fs.appendFileSync("./final_results.txt", "\n" + "Time Stamp: " 
-                          + (time.toLocaleString()), function(){});
+        fs.appendFileSync("./final_results.txt", "\n" + "Time Stamp: "  + setTimeFormat(time),
+            function(){});
     });
+}
+
+
+function setTimeFormat(time) {
+    var timeStampString = "";
+    timeStampString += time.getFullYear() + "-"
+    timeStampString += convertMonth(time.getMonth()) + "-";
+    timeStampString += time.getDate() + ", ";
+    timeStampString += time.toLocaleTimeString()
+    return timeStampString;
+}
+
+function convertMonth(month) {
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    return months[parseInt(month, 10) + 1]
+}
+
+/**
+ *
+ */
+function getPassOrFail(totalIncorrect) {
+    if (totalIncorrect > 16) {
+        return "Fail"
+    } else {
+        return "Pass"
+    }
 }
 
 /**
@@ -636,14 +640,16 @@ function writeResultsFile(request, totalIncorrect, totalWrongByType,
  */
 function fileContents(objectType, numObjectsByType, totalWrongByType,
                       wrongObjectsByType) {
-        var percentageIncorrect = 100*totalWrongByType.get(objectType)/
+    
+    var originalObjectNumberArr = originalObjectNumbers.originalObjectNumbers;
+    var percentageIncorrect = 100*totalWrongByType.get(objectType)/
         numObjectsByType.get(objectType);
     var percentageCorrect = (100 - Math.round(percentageIncorrect));
-    var globalMessage = "object Type " + objectType + ": Wrong " + 
-        totalWrongByType.get(objectType) + " out of " + 
+    var globalMessage = "Object Type " + objectType + ": Correct " +
+        (numObjectsByType.get(objectType) - totalWrongByType.get(objectType)) + " out of " +
             numObjectsByType.get(objectType) + " (" + percentageCorrect + "%)" 
                 + "\n";
-    var granularMessage = "Objects Wrong: ";
+    var granularMessage = "Objects Missed: ";
     for (var i = 0; i < wrongObjectsByType.get(objectType).length; i++) {
         if (i != 0) {
             granularMessage += ", ";
@@ -693,8 +699,7 @@ function sendEmailWithResults(request) {
     let mailOptions = {
         from: process.env.EMAIL_SENDER_ACC,
         to: process.env.EMAIL_RECIEVER_ACC,
-        subject: firstName + " " + lastName + ' CTC App Results',
-        text: "80 objects no AF",
+        subject: firstName + " " + lastName + " " + TEST_NAME,
         attachments: [{
             filename: 'final_results.txt',
             path: './final_results.txt'
@@ -702,8 +707,8 @@ function sendEmailWithResults(request) {
     }
 
     transporter.sendMail(mailOptions, function(e,data) {
-        if (error) {
+        if (e) {
             console.log(e);
-        } 
+        }
     });
 }

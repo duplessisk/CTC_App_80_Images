@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <p id="loginFormInstructions">Our records require that you enter your full name and company/institution.</p>
+    <p id="loginFormInstructions">Our records require that you enter your full name and information related to your company/institution.</p>
     <form action="/html_pages/login_page" method="POST" id="form">
         <div id="loginFormDiv">
             <div class="login-fields-div">
@@ -20,7 +20,31 @@
             </div>
             <div class="login-fields-div">
                 <label for="company"></label>
-                <input id="company" class="login-fields" name="company" placeholder="Company" required>
+                <input id="company" class="login-fields" name="company" placeholder="Company Name" required>
+            </div>
+            <div class="login-fields-div">
+                <label for="addressLineOne"></label>
+                <input id="addressLineOne" class="login-fields" name="addressLineOne" placeholder="Address Line One" required>
+            </div>
+            <div class="login-fields-div">
+                <label for="addressLineTwo"></label>
+                <input id="addressLineTwo" class="login-fields" name="addressLineTwo" placeholder="Address Line Two">
+            </div>
+            <div class="login-fields-div">
+                <label for="city"></label>
+                <input id="city" class="login-fields" name="city" placeholder="City" required>
+            </div>
+            <div class="login-fields-div">
+                <label for="state"></label>
+                <input id="state" class="login-fields" name="state" placeholder="State/Province" required>
+            </div>
+            <div class="login-fields-div">
+                <label for="country"></label>
+                <input id="country" class="login-fields" name="country" placeholder="Country" required>
+            </div>
+            <div class="login-fields-div">
+                <label for="zipCode"></label>
+                <input id="zipCode" class="login-fields" name="zipCode" placeholder="Zip/Postal Code" required>
             </div>
         </div>
     </form>

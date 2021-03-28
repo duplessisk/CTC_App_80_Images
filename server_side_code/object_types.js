@@ -16,6 +16,8 @@ function main() {
 
     setKeys(objectNumbers,objectInfo,answerKeys,objectTypes,originalObjectNumbers);
 
+    // renameObjects(objectNumbers);
+
     exports.originalObjectNumbers = originalObjectNumbers;
     exports.answerKeys = answerKeys;
     exports.objectTypes = objectTypes;
@@ -41,7 +43,7 @@ function populateObjectInfo(objectInfo,rows) {
  */
 function getFileContents() {
     var fileContents = fs.readFileSync(__dirname + 
-        '/80_objects_no_AF_information_test2.csv');
+        '/80_objects_AF_information_test2.csv');
 
     var rows = fileContents.toString().split(new RegExp('\r?\n'));
     return rows.splice(1,rows.length - 2);
@@ -75,4 +77,39 @@ function setKeys(objectNumbers,objectInfo,answerKeys,objectTypes,originalObjectN
         }
     }
 
+}
+
+/**
+ * 
+ * @param {*} objectNumbers - 
+ */
+function renameObjects(objectNumbers) {
+    fs.readdirSync(__dirname + '/../client_side_code/original_object_images').forEach(function(file,e) {
+        var originalObjectNumber = getOriginalObjectNumber(file);
+        changeObjectName(objectNumbers, file, originalObjectNumber);
+    });
+}
+
+/**
+ * 
+ * @param {File} file -  
+ */
+function getOriginalObjectNumber(file) {
+    var originalObjectNumber = file.split('t')[1];
+    return originalObjectNumber.split('_')[0].trim();
+}
+
+/**
+ * 
+ * @param {*} file - 
+ * @param {*} originalObjectNumber - 
+ */
+function changeObjectName(objectNumbers, file, originalObjectNumber) {
+    if (objectNumbers.has(originalObjectNumber)) {
+        var updatedObjectNumber = objectNumbers.get(originalObjectNumber);
+        fs.rename(__dirname + '/../client_side_code/original_object_images/' + file, 
+            __dirname + '/../client_side_code/final_object_images/object' + 
+                updatedObjectNumber + '.png', function(e) {
+        });
+    }
 }
