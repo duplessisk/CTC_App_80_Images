@@ -596,7 +596,7 @@ function writeResultsFile(request, totalIncorrect, totalWrongByType,
                         function(){});
         }
         var time = new Date();
-        time.setUTCHours(time.getUTCHours() - 8);
+        time.setUTCHours(time.getUTCHours() - 7);
         fs.appendFileSync("./final_results.txt", "\n" + "Time Stamp: "  + setTimeFormat(time),
             function(){});
     });
