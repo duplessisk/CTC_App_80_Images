@@ -573,11 +573,11 @@ function writeResultsFile(request, totalIncorrect, totalWrongByType,
 
     fs.writeFile("./final_results.txt","", function() {
         if (addressLineTwo == ""){
-            fs.appendFileSync("./final_results.txt","Test Taker: " + name + " " +
+            fs.appendFileSync("./final_results.txt","Test Taker: " + fullName + " " +
                 "\n" + "\n" + "Company Info: " + "\n" +  company + "\n" + addressLineOne + "\n"
                     + city + ", " + state + ", " + country + ", " + zipCode + "\n" + "\n", function() {})
         } else {
-            fs.appendFileSync("./final_results.txt","Test Taker: " + name + " " +
+            fs.appendFileSync("./final_results.txt","Test Taker: " + fullName + " " +
                 + "\n" + "Company Info: " + "\n" +  company + "\n" + addressLineOne + "\n" +
                     addressLineTwo + "\n" + city + ", " + state + ", " + country + ", " + zipCode + "\n" + "\n",
                         function() {})
