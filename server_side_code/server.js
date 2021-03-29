@@ -561,25 +561,24 @@ function writeResultsFile(request, totalIncorrect, totalWrongByType,
 
     var clientInfo = request.cookies['session_id'].split(".");
 
-    firstName = clientInfo[0];
-    lastName = clientInfo[1];
-    company = clientInfo[2];
-    addressLineOne = clientInfo[3];
-    addressLineTwo = clientInfo[4];
-    city = clientInfo[5];
-    state = clientInfo[6];
-    country = clientInfo[7];
-    zipCode = clientInfo[8];
+    fullName = clientInfo[0];
+    company = clientInfo[1];
+    addressLineOne = clientInfo[2];
+    addressLineTwo = clientInfo[3];
+    city = clientInfo[4];
+    state = clientInfo[5];
+    country = clientInfo[6];
+    zipCode = clientInfo[7];
 
 
     fs.writeFile("./final_results.txt","", function() {
         if (addressLineTwo == ""){
-            fs.appendFileSync("./final_results.txt","Test Taker: " + firstName + " " +
-                lastName + "\n" + "\n" + "Company Info: " + "\n" +  company + "\n" + addressLineOne + "\n"
+            fs.appendFileSync("./final_results.txt","Test Taker: " + name + " " +
+                "\n" + "\n" + "Company Info: " + "\n" +  company + "\n" + addressLineOne + "\n"
                     + city + ", " + state + ", " + country + ", " + zipCode + "\n" + "\n", function() {})
         } else {
-            fs.appendFileSync("./final_results.txt","Test Taker: " + firstName + " " +
-                lastName + "\n" + "\n" + "Company Info: " + "\n" +  company + "\n" + addressLineOne + "\n" +
+            fs.appendFileSync("./final_results.txt","Test Taker: " + name + " " +
+                + "\n" + "Company Info: " + "\n" +  company + "\n" + addressLineOne + "\n" +
                     addressLineTwo + "\n" + city + ", " + state + ", " + country + ", " + zipCode + "\n" + "\n",
                         function() {})
         }
@@ -614,7 +613,7 @@ function setTimeFormat(time) {
 
 function convertMonth(month) {
     var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    return months[parseInt(month, 10) + 1]
+    return months[parseInt(month, 10) - 1]
 }
 
 /**
@@ -685,8 +684,7 @@ function sendEmailWithResults(request) {
 
     var clientInfo = request.cookies['session_id'].split(".");
 
-    firstName = clientInfo[0];
-    lastName = clientInfo[1];
+    fullName = clientInfo[0];
 
     let transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -699,7 +697,7 @@ function sendEmailWithResults(request) {
     let mailOptions = {
         from: process.env.EMAIL_SENDER_ACC,
         to: process.env.EMAIL_RECIEVER_ACC,
-        subject: firstName + " " + lastName + " " + TEST_NAME,
+        subject: fullName + " " + TEST_NAME,
         attachments: [{
             filename: 'final_results.txt',
             path: './final_results.txt'
