@@ -234,8 +234,7 @@ app.listen(process.env.PORT || 3000);
  * @param {http} response - Server http response to the client.
  */
 function setClientCookie(request, response) {
-    firstName = request.body.firstName;
-    lastName = request.body.lastName;
+    fullName = request.body.fullName;
     company = request.body.company;
     addressLineOne = request.body.addressLineOne
     addressLineTwo = request.body.addressLineTwo
@@ -244,8 +243,8 @@ function setClientCookie(request, response) {
     country = request.body.country
     zipCode = request.body.zipCode
 
-    response.cookie("session_id", firstName + "." + lastName + "." + company + "." + addressLineOne + "." +
-        addressLineTwo + "." + city + "." + state + "." + country + "." + zipCode);
+    response.cookie("session_id", fullName + "." + company + "." + addressLineOne + "." + addressLineTwo + "." +
+        city + "." + state + "." + country + "." + zipCode);
 }
 
 /**
@@ -570,14 +569,13 @@ function writeResultsFile(request, totalIncorrect, totalWrongByType,
     country = clientInfo[6];
     zipCode = clientInfo[7];
 
-
     fs.writeFile("./final_results.txt","", function() {
         if (addressLineTwo == ""){
-            fs.appendFileSync("./final_results.txt","Test Taker: " + fullName + " " +
+            fs.appendFileSync("./final_results.txt","Test Taker: " + fullName +
                 "\n" + "\n" + "Company Info: " + "\n" +  company + "\n" + addressLineOne + "\n"
                     + city + ", " + state + ", " + country + ", " + zipCode + "\n" + "\n", function() {})
         } else {
-            fs.appendFileSync("./final_results.txt","Test Taker: " + fullName + " " +
+            fs.appendFileSync("./final_results.txt","Test Taker: " + fullName + "\n"
                 + "\n" + "Company Info: " + "\n" +  company + "\n" + addressLineOne + "\n" +
                     addressLineTwo + "\n" + city + ", " + state + ", " + country + ", " + zipCode + "\n" + "\n",
                         function() {})
@@ -613,7 +611,7 @@ function setTimeFormat(time) {
 
 function convertMonth(month) {
     var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    return months[parseInt(month, 10) - 1]
+    return months[parseInt(month, 10)]
 }
 
 /**
