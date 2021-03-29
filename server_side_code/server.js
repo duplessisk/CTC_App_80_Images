@@ -35,7 +35,9 @@ const Client = mongoose.model('80imagesclientsaftest2', schema);
 console.log();
 console.log("server starting...");
 
-const TEST_NAME = fs.readFileSync(__dirname + '/../client_side_code/test_info.txt')
+const TEST_INFO = fs.readFileSync(__dirname + '/../client_side_code/test_info.txt', 'utf-8').split(',');
+const TEST = TEST_INFO[0]
+const TEST_VERSION = TEST_INFO[1]
 const NUM_QUESTIONS = 80
 
 // welcome page
@@ -580,7 +582,8 @@ function writeResultsFile(request, totalIncorrect, totalWrongByType,
                     addressLineTwo + "\n" + city + ", " + state + ", " + country + ", " + zipCode + "\n" + "\n",
                         function() {})
         }
-        fs.appendFileSync("./final_results.txt", "Test: " + TEST_NAME + "\n" + "\n", function() {})
+        fs.appendFileSync("./final_results.txt", "Test: " + TEST + "\n", function() {})
+        fs.appendFileSync("./final_results.txt", "Test Version: " + TEST_VERSION + "\n" + "\n", function() {})
         fs.appendFileSync("./final_results.txt", "Final Result: ",function() {});
         fs.appendFileSync("./final_results.txt", (NUM_QUESTIONS - totalIncorrect) +
         " out of " + 80 + " (" + Math.round(100*((NUM_QUESTIONS-totalIncorrect)/NUM_QUESTIONS))
@@ -695,7 +698,7 @@ function sendEmailWithResults(request) {
     let mailOptions = {
         from: process.env.EMAIL_SENDER_ACC,
         to: process.env.EMAIL_RECIEVER_ACC,
-        subject: fullName + " " + TEST_NAME,
+        subject: fullName + " " + TEST_VERSION,
         attachments: [{
             filename: 'final_results.txt',
             path: './final_results.txt'
