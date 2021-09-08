@@ -3,25 +3,27 @@ Test Taker: Kyle Duplessis
 Company Info: 
 Rarecyte
 12540 12th Ave NW
+Address Line Two
 Seattle, Washington, United States, 98177
 
-Test: AF 1
+Test: AF CTC ID and Counting (Ref. 48-01)
+Test Version: AF Test 1
 
-Final Result: 59 out of 80 (74%), Fail
+Final Result: 0 out of 80 (0%), Fail
 
-Object Type CK/EpCAM Foci: Correct 13 out of 13 (100%)
-Objects Missed: 
+Object Type CK/EpCAM Foci: Correct 0 out of 13 (0%)
+Objects Missed: 6, 8, 82, 92, 5, 113, 138, 144, 236, 237, 204, 210, 161
 
 Object Type CTC: Correct 0 out of 21 (0%)
 Objects Missed: 125, 44, 114, 25, 35, 33, 69, 34, 15, 137, 136, 115, 124, 23, 195, 65, 75, 105, 17, 106, 93
 
-Object Type White Blood Cell: Correct 25 out of 25 (100%)
-Objects Missed: 
+Object Type White Blood Cell: Correct 0 out of 25 (0%)
+Objects Missed: 123, 229, 68, 134, 221, 103, 231, 163, 80, 152, 117, 104, 53, 228, 187, 220, 91, 50, 97, 218, 51, 188, 67, 219, 52
 
-Object Type Apoptotic CTC: Correct 8 out of 8 (100%)
-Objects Missed: 
+Object Type Apoptotic CTC: Correct 0 out of 8 (0%)
+Objects Missed: 40, 22, 43, 194, 24, 42, 32, 16
 
-Object Type Fluorescent Artifact: Correct 13 out of 13 (100%)
-Objects Missed: 
+Object Type Fluorescent Artifact: Correct 0 out of 13 (0%)
+Objects Missed: 238, 127, 151, 232, 239, 146, 145, 143, 13, 7, 154, 153, 77
 
-Time Stamp: 2021-Apr-28, 4:41:17 AM
+Time Stamp: 2021-Mar-29, 5:44:31 AM

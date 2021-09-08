@@ -547,6 +547,21 @@ function getThisObjectType(allObjectTypes,objectNum) {
     }
 }
 
+
+/**
+ *
+ * @param {*} i -
+ * @param {*} wrongObjectNumber -
+ * @return -
+ */
+function getWrongObjectNumberIndex(i, wrongObjectNumber) {
+    if (wrongObjectNumber.charAt(i) == '0') {
+        return Number(wrongObjectNumber.charAt(1));
+    } else {
+        return Number(wrongObjectNumber);
+    }
+}
+
 /**
  * Writes the final_results.txt that will be emailed to the admin.
  * @param {http} request - Client http request to the server.
@@ -574,11 +589,11 @@ function writeResultsFile(request, totalIncorrect, totalWrongByType,
     fs.writeFile("./final_results.txt","", function() {
         if (addressLineTwo == ""){
             fs.appendFileSync("./final_results.txt","Test Taker: " + fullName +
-                "\n" + "\n" + "Company Info: " + "\n" +  company + "\n" + addressLineOne + "\n"
+                "\n" + "\n" + "Affiliation Info: " + "\n" +  company + "\n" + addressLineOne + "\n"
                     + city + ", " + state + ", " + country + ", " + zipCode + "\n" + "\n", function() {})
         } else {
             fs.appendFileSync("./final_results.txt","Test Taker: " + fullName + "\n"
-                + "\n" + "Company Info: " + "\n" +  company + "\n" + addressLineOne + "\n" +
+                + "\n" + "Affiliation Info: " + "\n" +  company + "\n" + addressLineOne + "\n" +
                     addressLineTwo + "\n" + city + ", " + state + ", " + country + ", " + zipCode + "\n" + "\n",
                         function() {})
         }
@@ -586,11 +601,11 @@ function writeResultsFile(request, totalIncorrect, totalWrongByType,
         fs.appendFileSync("./final_results.txt", "Test Version: " + TEST_VERSION + "\n" + "\n", function() {})
         fs.appendFileSync("./final_results.txt", "Final Result: ",function() {});
         fs.appendFileSync("./final_results.txt", (NUM_QUESTIONS - totalIncorrect) +
-        " out of " + 80 + " (" + Math.round(100*((NUM_QUESTIONS-totalIncorrect)/NUM_QUESTIONS))
+        " out of " + NUM_QUESTIONS + " (" + Math.round(100*((NUM_QUESTIONS-totalIncorrect)/NUM_QUESTIONS))
             + "%)" + ", " + getPassOrFail(totalIncorrect) + "\n", function() {});
         var keys = Array.from(totalWrongByType.keys());
         for (var i = 0; i < keys.length; i++) {
-            fs.appendFileSync("./final_results.txt", "\n" + 
+            fs.appendFileSync("./final_results.txt", "\n" +
                 fileContents(keys[i], numObjectsByType, totalWrongByType, 
                     wrongObjectsByType), 
                         function(){});
@@ -650,31 +665,21 @@ function fileContents(objectType, numObjectsByType, totalWrongByType,
             numObjectsByType.get(objectType) + " (" + percentageCorrect + "%)" 
                 + "\n";
     var granularMessage = "Objects Missed: ";
-    for (var i = 0; i < wrongObjectsByType.get(objectType).length; i++) {
-        if (i != 0) {
-            granularMessage += ", ";
+    if (wrongObjectsByType.get(objectType).length == 0) {
+       granularMessage += "None"
+    } else {
+        for (var i = 0; i < wrongObjectsByType.get(objectType).length; i++) {
+            if (i != 0) {
+                granularMessage += ", ";
+            }
+            var wrongObjectNumber = wrongObjectsByType.get(objectType)[i].substring(29,31);
+            var wrongObjectNumberIndex =
+                getWrongObjectNumberIndex(i,wrongObjectNumber);
+            granularMessage += originalObjectNumberArr[wrongObjectNumberIndex];
         }
-        var wrongObjectNumber = wrongObjectsByType.get(objectType)[i];
-        var wrongObjectNumberIndex = 
-            getWrongObjectNumberIndex(i,wrongObjectNumber);
-        granularMessage += originalObjectNumberArr[wrongObjectNumberIndex];
     }
     granularMessage += "\n";
     return globalMessage + granularMessage;
-}
-
-/**
- * 
- * @param {*} i - 
- * @param {*} wrongObjectNumber - 
- * @return - 
- */
-function getWrongObjectNumberIndex(i, wrongObjectNumber) {
-    if (wrongObjectNumber.charAt(i) == '0') {
-        return Number(wrongObjectNumber.charAt(1));
-    } else {
-        return Number(wrongObjectNumber);
-    }
 }
 
 
